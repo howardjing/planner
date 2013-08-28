@@ -1,8 +1,8 @@
-<div ng-switch="tasks.length" class="tasks">
-  <div ng-switch-when="0">
+<div class="tasks">
+  <div ng-if="!tasks.length">
     <span class="subtle">There are no tasks for this project yet.</span>
   </div>
-  <div ng-switch-default>
+  <div ng-if="tasks.length">
     <table class="table table-hover table-condensed table-striped tasks-table">
       <colgroup>
         <col class="col-md-2">

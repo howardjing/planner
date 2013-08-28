@@ -1,10 +1,9 @@
-app.controller('TasksShowCtrl', ['$scope', '$modal', 'task', 'TaskService', 'StateSynchronizer',
-  function($scope, $modal, task, TaskService, StateSynchronizer) {
+app.controller('TasksShowCtrl', ['$scope', '$modal', 'task', 'TaskService',
+  function($scope, $modal, task, TaskService) {
   
   $scope.task = task;
   $scope.project = task.project;
-  $scope.taskFormState = StateSynchronizer.create();
-  $scope.taskStatusState = StateSynchronizer.create();
+  $scope.state = TaskService.getState();
 
   // should probably fetch this from rails
   $scope.statuses = ['not_started', 'completed']
@@ -18,20 +17,16 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', 'task', 'TaskService', 'Sta
         },
         save: function() {
           return function(task) {
-            $scope.taskFormState.syncing();
             var saving = TaskService.update({ projectId: $scope.project.id, id: $scope.task.id }, task);
             saving.$then(function(response) {
-              $scope.taskFormState.reset();
               $scope.task.title = response.data.title;
               $scope.task.description = response.data.description;
-            }, function(response) {
-              $scope.taskFormState.failure(response.data.errors);
             });
             return saving;
           }
         },
         state: function() {
-          return $scope.taskFormState;
+          return $scope.state;
         }
       },
     })
@@ -47,14 +42,10 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', 'task', 'TaskService', 'Sta
   })
 
   $scope.saveStatus = function() {
-    $scope.taskStatusState.syncing();
     TaskService.update({ projectId: $scope.project.id, id: $scope.task.id }, { status: $scope.task.status }) 
       .$then(function(response) {
-        $scope.taskStatusState.reset();
         $scope.persistedStatus = response.data.status;
         $scope.task = response.data;
-      }, function(response) {
-        $scope.taskStatusState.failure(response.data.errors);
       });
   }
 }]);

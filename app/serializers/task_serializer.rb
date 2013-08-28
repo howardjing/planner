@@ -4,4 +4,8 @@ class TaskSerializer < ActiveModel::Serializer
   def id
     object.id.to_s
   end
+
+  def description
+    object.description || ""
+  end
 end

@@ -1,9 +1,9 @@
-app.controller('ProjectsIndexCtrl', ['$scope', '$log', '$modal', 'ProjectService', 'StateSynchronizer',
-function($scope, $log, $modal, ProjectService, StateSynchronizer) {
+app.controller('ProjectsIndexCtrl', ['$scope', '$log', '$modal', 'ProjectService',
+function($scope, $log, $modal, ProjectService) {
 
   $scope.projects = ProjectService.query();
   $scope.newProject = {};
-  $scope.state = StateSynchronizer.create();
+  $scope.state = ProjectService.getState();
 
   $scope.addNewProject = function () {
     $modal.open({
@@ -15,13 +15,9 @@ function($scope, $log, $modal, ProjectService, StateSynchronizer) {
         },
         save: function() {
           return function(newProject) {
-            $scope.state.syncing();
             var saving = ProjectService.save(newProject)
             saving.$then(function(response) {
               $scope.projects.unshift(response.data);
-              $scope.state.success();
-            }, function(response) {
-              $scope.state.failure(response.data.errors);
             });
             return saving;
           }

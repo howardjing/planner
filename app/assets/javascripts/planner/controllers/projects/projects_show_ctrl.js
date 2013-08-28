@@ -1,12 +1,12 @@
-app.controller('ProjectsShowCtrl', ['$scope', '$log', '$modal', 'ProjectService', 'TaskService', 'StateSynchronizer', 'project',
-function($scope, $log, $modal, ProjectService, TaskService, StateSynchronizer, project) {
+app.controller('ProjectsShowCtrl', ['$scope', '$log', '$modal', 'ProjectService', 'TaskService', 'project',
+function($scope, $log, $modal, ProjectService, TaskService, project) {
 
   $scope.project = project;
-  $scope.projectState = StateSynchronizer.create();
+  $scope.projectState = ProjectService.getState();
   
   $scope.tasks = project.tasks;
   $scope.newTask = {};
-  $scope.taskState = StateSynchronizer.create();
+  $scope.taskState = TaskService.getState();
 
   $scope.editProject = function () {
     $modal.open({
@@ -18,13 +18,9 @@ function($scope, $log, $modal, ProjectService, TaskService, StateSynchronizer, p
         },
         save: function() {
           return function(project) {
-            $scope.projectState.syncing();
             var saving = ProjectService.update({id: project.id}, project)
             saving.$then(function(response) {
               $scope.project = response.data;
-              $scope.projectState.success();
-            }, function(response) {
-              $scope.projectState.failure(response.data.errors);
             });
             return saving;
           }
@@ -46,13 +42,9 @@ function($scope, $log, $modal, ProjectService, TaskService, StateSynchronizer, p
         },
         save: function() {
           return function(newTask) {
-            $scope.taskState.syncing();
             var saving = TaskService.save({ projectId: $scope.project.id }, newTask);
             saving.$then(function(response) {
               $scope.tasks.unshift(response.data);
-              $scope.taskState.success();
-            }, function(response) {
-              $scope.taskState.failure(response.data.errors);
             });
             return saving;
           }
