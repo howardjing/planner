@@ -1,0 +1,22 @@
+a.project-link {
+  text-decoration: none;
+  display: block;
+  .description {
+    color: black;
+  }
+}
+
+.project {
+  @include make-item();
+}
+
+.project {
+
+  .tasks {
+    margin: 10px 0;
+  }
+
+  .tasks-table {
+    margin: 0;
+  }
+}  

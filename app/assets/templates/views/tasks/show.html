@@ -1,0 +1,30 @@
+<div class="heading row">
+  <div class="pull-left">
+    <h2 class="title">{{task.title}}</h2>
+    <div class="description label" ng-class="task.status | humanize:'-'">{{task.status | humanize}}</div>
+  </div>
+  <div class="controls pull-right">
+    <button class="btn btn-default" ng-click="editTask()">
+      <span class="glyphicon glyphicon-edit"></span> Edit Task
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="task">
+    {{task.description}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="task-progress">
+    <h3>progress</h3>
+    <label class="inline" ng-repeat="status in statuses">
+      <input type="radio" ng-model="task.status" value="{{status}}"> {{status | humanize}}
+    </label>
+    <span ng-show="statusChanged">
+      <button class="btn btn-inline btn-default" ng-click="saveStatus()">
+        <span class="glyphicon glyphicon-floppy-disk"></span> save</button> {{ state.context }}
+    </span>
+  </div>
+</div>

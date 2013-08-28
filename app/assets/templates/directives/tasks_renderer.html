@@ -1,0 +1,28 @@
+<div ng-switch="tasks.length" class="tasks">
+  <div ng-switch-when="0">
+    <span class="subtle">There are no tasks for this project yet.</span>
+  </div>
+  <div ng-switch-default>
+    <table class="table table-hover table-condensed table-striped tasks-table">
+      <colgroup>
+        <col class="col-md-2">
+        <col class="col-md-1">
+        <col class="col-md-9">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>title</th>
+          <th>status</th>
+          <th>description</th>
+        </tr>
+      </thead>
+      <tbody> 
+        <tr class="link" ng-repeat="task in tasks" ng-click="redirectTo($event, tasksPath(project, task))">
+          <td>{{task.title}}</td>
+          <td><span class="label" ng-class="task.status | humanize:'-'">{{task.status | humanize}}</span></td>
+          <td>{{task.description | truncate:140}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

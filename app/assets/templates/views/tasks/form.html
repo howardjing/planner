@@ -1,0 +1,32 @@
+<plan-modal>
+  <form class="form-horizontal">
+    <legend>task - {{task.title}}</legend>
+
+    <display-errors errors="state.errors"></display-errors>
+    
+    <div class="form-group">
+      <label class="control-label col-md-2">Title</label>
+      <div class="col-md-10">
+        <input ng-model="task.title" type="text" class="form-control" placeholder="My Cool Title">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-md-2">Description</label>
+      <div class="col-md-10">
+        <textarea ng-model="task.description"class="form-control" placeholder="My Cool Description">
+        </textarea>
+      </div>
+    </div>
+
+    <div class="form-group container">
+      <div class="col-md-offset-2">
+        <span class="spinny glyphicon glyphicon-refresh" ng-show="state.isSyncing()"></span> {{state.context}} 
+        <div class="pull-right">
+          <button class="btn btn-info" ng-click="ok()" ng-disabled="state.isSyncing()">Save</button>
+          <button class="btn" ng-click="cancel()" ng-disabled="state.isSyncing()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</plan-modal>

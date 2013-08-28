@@ -1,0 +1,74 @@
+var app = angular.module('app', ['ngResource', 'ui.bootstrap.modal', 'ui.bootstrap.collapse']);
+
+// add csrf token to headers
+app.config(['$httpProvider', function($httpProvider) {
+  var csrfToken;
+  var metaTags = document.getElementsByTagName('meta');
+  for (var i=0; i<metaTags.length; i++) {
+    if (metaTags[i].getAttribute('name') === 'csrf-token') {
+      csrfToken = metaTags[i].getAttribute('content');
+      break;
+    }
+  }
+  $httpProvider.defaults.headers.common['X-CSRF-Token'] = csrfToken;
+}])
+
+// routing
+app.config(['$routeProvider', function($routeProvider) {
+  $routeProvider
+  .when('/', { 
+    templateUrl: 'assets/views/projects/index.html',
+    controller: 'ProjectsIndexCtrl',
+    // abusing the resolve object to set the breadcrumb
+    resolve: {
+      crumb: ['Breadcrumb', function(Breadcrumb) {
+        Breadcrumb.setCrumb('projects');
+      }]
+    }
+  })
+  .when('/projects', { 
+    templateUrl: 'assets/views/projects/index.html',
+    controller: 'ProjectsIndexCtrl',
+    resolve: {
+      crumb: ['Breadcrumb', function(Breadcrumb) {
+        Breadcrumb.setCrumb('projects');
+      }]
+    }
+  })
+  .when('/projects/:id', {
+    templateUrl: 'assets/views/projects/show.html',
+    controller: 'ProjectsShowCtrl',
+    resolve: {
+      project: ['$q', '$route', 'ProjectService', 'Breadcrumb',
+      function($q, $route, ProjectService, Breadcrumb) {
+        var deferred = $q.defer();
+        ProjectService.get({id: $route.current.params.id}, 
+          function(project) {
+            Breadcrumb.setCrumb('project', { project: project });
+            deferred.resolve(project);
+          }, function(response) {
+            deferred.reject(response.data);
+          });
+        return deferred.promise;
+      }]
+    }
+  })
+  .when('/projects/:projectId/tasks/:id', {
+    templateUrl: 'assets/views/tasks/show.html',
+    controller: 'TasksShowCtrl',
+    resolve: {
+      task: ['$q', '$route', 'TaskService', 'Breadcrumb',
+      function($q, $route, TaskService, Breadcrumb) {
+        var deferred = $q.defer();
+        TaskService.get({projectId: $route.current.params.projectId, id: $route.current.params.id},
+          function(task) {
+            Breadcrumb.setCrumb('task', { task: task, project: task.project });
+            deferred.resolve(task);
+          }, function(response) {
+            deferred.reject(response.data);
+          });
+        return deferred.promise;
+      }]
+    }
+  })
+}])

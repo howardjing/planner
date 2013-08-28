@@ -1,0 +1,156 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ */
+
+/* global variables and mixins */
+@import "planner/variables";
+@import "planner/mixins";
+
+/* bootstrap */
+@import "bootstrap/init";
+
+/* page specific stuff */
+@import "planner/projects";
+@import "planner/tasks";
+
+
+/* misc stuff */
+
+/* for footer start */
+html, 
+body {
+  height: 100%;
+}
+
+body {
+  background-image: url('noise.png');
+}
+
+#main-wrapper {
+  min-height: 100%;
+  position: relative;
+}
+
+#main-content {
+  /* padding for footer */
+  padding-bottom: 80px;
+}
+
+footer.navbar {
+  position: absolute;
+  /*background: pink;*/
+
+  hr {
+    border-top-color: $gray-light;
+    margin: 0;
+  }
+  .navbar-text {
+    margin: 15px 0;
+  }
+  a {
+    color: $gray-dark;
+  }
+}
+/* for footer end */
+
+
+/* temporarily here because modal service doesn't work with bootstrap3 */
+.modal.fade.in {
+  display: block;
+}
+
+/* overriding breadcrumb styling */
+.breadcrumb {
+  background-color: inherit;
+  padding: 8px 0;
+  margin-bottom: 10px;
+
+  li + li:before {
+    content: "/\0";
+    padding: 0 1px 0 5px;
+  }
+}
+
+.alert-loading {
+  @include alert-box($alert-warning-bg, $alert-warning-shadow, $alert-warning-text);
+  @include make-sm-column-offset(5);
+  border-radius: 2px;
+  padding: 10px;
+  width: 100px;
+  position: fixed;
+  top: 80px;
+}
+
+.errors {
+  @include alert-box($alert-danger-bg, $alert-danger-shadow, $alert-danger-text);
+  border-radius: 5px;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  ul {
+    margin-bottom: 0;
+  }
+}
+
+.spinny {
+  -moz-animation: spin 1s infinite linear;
+  -o-animation: spin 1s infinite linear;
+  -webkit-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  0%   { @include rotate(0deg); }
+  100% { @include rotate(359deg); }
+}
+
+@-webkit-keyframes spin {
+  0%   { @include rotate(0deg); }
+  100% { @include rotate(359deg); }
+}
+
+.subtle {
+  color: $gray-light;
+}
+
+.heading {
+  h2 {
+    margin: 0;
+  }
+  .controls {
+    margin: 10px 0 0 0;
+  }
+}
+
+.title {
+  font-size: 24px;
+  @media(min-width: $screen-md) {
+    display: inline-block;
+    min-width: 100px;
+    padding-right: 10px;
+  }
+}
+
+.description {
+  @media(min-width: $screen-md) {
+    display: inline-block;
+  }
+}
+
+table {
+  tr.link {
+    cursor: pointer;
+  }
+}
+
+/* form */
+.btn.btn-inline {
+  line-height: 15px;
+}

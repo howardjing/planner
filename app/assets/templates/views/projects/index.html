@@ -1,0 +1,20 @@
+<div class="heading row">
+  <div class="pull-left">
+    <h2 class="title">projects</h2>
+  </div>
+  <div class="controls pull-right">
+    <button class="btn btn-info" ng-click="addNewProject()">
+      <span class="glyphicon glyphicon-plus"></span> New Project
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="project" ng-repeat="project in projects">
+    <a ng-href="/#projects/{{project.id}}" class="project-link">
+      <div class="title">{{project.title}}</div> 
+      <div class="description">{{project.description}}</div>
+    </a>
+    <tasks-renderer project="project" tasks="project.tasks"></tasks-renderer>
+  </div>
+</div>
