@@ -85,8 +85,20 @@ describe ProjectsController do
       Project.trashed.count.should == 0
       expect {
         delete "/projects/#{project.id}.json"
-      }. to change{ Project.active.count }.from(1).to(0)
+      }.to change{ Project.active.count }.from(1).to(0)
       Project.trashed.count.should == 1
+    end
+  end
+
+  describe "PATCH /projects/:id/revive.json" do
+    let(:project) { create_project(title: 'My trashed project', in_trash: true) }
+    before do
+      project
+    end
+    it "takes the requested project out of the trash" do
+      expect {
+        patch "/projects/#{project.id}/revive.json"
+      }.to change{ Project.trashed.count }.from(1).to(0)
     end
   end
 

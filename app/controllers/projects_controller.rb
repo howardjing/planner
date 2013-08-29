@@ -30,6 +30,13 @@ class ProjectsController < ApplicationController
     respond_with project
   end
 
+  def revive
+    project = find_project
+    project.untrash
+    project.save
+    respond_with project
+  end
+
   private
 
   def find_project
