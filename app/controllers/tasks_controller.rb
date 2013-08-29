@@ -17,6 +17,20 @@ class TasksController < ApplicationController
     respond_with task, serializer: Task::WithProjectSerializer
   end
 
+  def destroy
+    task = find_task
+    task.trash
+    task.save
+    respond_with task, serializer: Task::WithProjectSerializer
+  end
+
+  def revive
+    task = find_task
+    task.untrash
+    task.save
+    respond_with task
+  end
+
   private
 
   def project

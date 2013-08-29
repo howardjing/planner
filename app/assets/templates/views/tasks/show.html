@@ -4,6 +4,9 @@
     <div class="description label" ng-class="task.status | humanize:'-'">{{task.status | humanize}}</div>
   </div>
   <div class="controls pull-right">
+    <button class="btn btn-default" ng-click="deleteTask()">
+      <span class="glyphicon glyphicon-remove"></span> Delete Task
+    </button>
     <button class="btn btn-default" ng-click="editTask()">
       <span class="glyphicon glyphicon-edit"></span> Edit Task
     </button>

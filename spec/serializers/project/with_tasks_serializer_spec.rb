@@ -58,4 +58,23 @@ describe Project::WithTasksSerializer do
       ]
     }.to_json
   end
+
+  it "only serializes trashed tasks when trashed: true" do
+    project.save!
+    active_task = project.tasks.create! title: 'active task'
+    trashed_task = project.tasks.build(title: 'trashed task').tap { |t| t.trash }.tap { |t| t.save! }
+    serializer(trashed: true).to_json.should == {
+      id: project.id.to_s,
+      title: 'cool proj',
+      description: 'hey',
+      tasks: [
+        {
+          id: trashed_task.id.to_s,
+          title: 'trashed task',
+          description: '',
+          status: :not_started
+        }
+      ]
+    }.to_json
+  end
 end

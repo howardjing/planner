@@ -1,5 +1,5 @@
-app.controller('TasksShowCtrl', ['$scope', '$modal', 'task', 'TaskService',
-  function($scope, $modal, task, TaskService) {
+app.controller('TasksShowCtrl', ['$scope', '$modal', '$location', 'task', 'TaskService',
+  function($scope, $modal, $location, task, TaskService) {
   
   $scope.task = task;
   $scope.project = task.project;
@@ -47,5 +47,35 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', 'task', 'TaskService',
         $scope.persistedStatus = response.data.status;
         $scope.task = response.data;
       });
+  }
+
+  $scope.deleteTask = function() {
+    $modal.open({
+      templateUrl: 'assets/directives/confirmation_modal.html',
+      controller: 'ConfirmationModalCtrl',
+      resolve: {
+        message: function() {
+          return "Are you sure you want to delete " + $scope.task.title + "?"
+        },
+        yesText: function() {
+          return "Yes, delete it."
+        },
+        noText: function() {
+          return "No, don't delete it."
+        },
+        save: function() {
+          return function() {
+            var saving = TaskService.delete({ projectId: $scope.project.id, id: $scope.task.id })
+            saving.$then(function(response) {
+              $location.path('/projects/' + $scope.project.id);
+            });
+            return saving;
+          }
+        },
+        state: function() {
+          return $scope.state;
+        }
+      }
+    })
   }
 }]);

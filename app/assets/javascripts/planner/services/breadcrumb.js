@@ -46,6 +46,15 @@ app.service('Breadcrumb', [function() {
       },
       parent: 'projects'
     },
+    tasksTrash: {
+      name: function() {
+        return 'trash'
+      },
+      path: function() {
+        return '#/projects/' + storage.resources.project.id + '/trash';
+      },
+      parent: 'project'
+    },
     task: {
       name: function() {
         return storage.resources.task.title;

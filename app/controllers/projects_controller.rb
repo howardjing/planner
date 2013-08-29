@@ -3,12 +3,12 @@ class ProjectsController < ApplicationController
   def index
     scope = params[:trashed] ? :trashed : :active
     projects = Project.send(scope).order_by('updated_at DESC')
-    respond_with projects, each_serializer: Project::WithTasksSerializer
+    respond_with projects, each_serializer: Project::WithTasksSerializer, limit: 5
   end
 
   def show
     project = find_project
-    respond_with project, serializer: Project::WithTasksSerializer, limit: false
+    respond_with project, serializer: Project::WithTasksSerializer, trashed: params[:trashed]
   end
 
   def create

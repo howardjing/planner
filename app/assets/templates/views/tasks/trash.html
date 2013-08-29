@@ -1,0 +1,50 @@
+<div class="heading row">
+  <div class="pull-left">
+    <h2 class="title">{{project.title}} trashed tasks</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="project">
+    <div class="tasks">
+      <div ng-if="!tasks.length">
+        <span class="subtle">There are no trashed tasks for this project.</span>
+      </div>
+      <div ng-if="tasks.length">
+        <table class="table table-condensed table-striped tasks-table">
+          <colgroup>
+            <col class="col-md-2">
+            <col class="col-md-1">
+            <col class="col-md-7">
+            <col class="col-md-2">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>title</th>
+              <th>status</th>
+              <th>description</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody> 
+            <tr ng-repeat="task in tasks">
+              <td>{{task.title}}</td>
+              <td><span class="label" ng-class="task.status | humanize:'-'">{{task.status | humanize}}</span></td>
+              <td>{{task.description | truncate:140}}</td>
+              <td>
+                <div class="pull-right">
+                  <span ng-show="task == currentTask">{{state.context}}</span>
+                  <button class="btn btn-default" ng-click="revive(task)">
+                    <span class="glyphicon glyphicon-refresh" 
+                      ng-class="{ 'spinny': task == currentTask && state.isSyncing()}">
+                    </span> revive
+                  </button> 
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

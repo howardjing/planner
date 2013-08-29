@@ -62,6 +62,24 @@ app.config(['$routeProvider', function($routeProvider) {
       }]
     }
   })
+  .when('/projects/:id/trash', {
+    templateUrl: 'assets/views/tasks/trash.html',
+    controller: 'TasksTrashCtrl',
+    resolve:  {
+      project: ['$q', '$route', 'ProjectService', 'Breadcrumb',
+      function($q, $route, ProjectService, Breadcrumb) {
+        var deferred = $q.defer();
+        ProjectService.get({id: $route.current.params.id, trashed: true },
+          function(project) {
+            Breadcrumb.setCrumb('tasksTrash', { project: project });
+            deferred.resolve(project);
+          }, function(response) {
+            deferred.reject(response.data);
+          });
+        return deferred.promise;
+      }]
+    }
+  })
   .when('/projects/:projectId/tasks/:id', {
     templateUrl: 'assets/views/tasks/show.html',
     controller: 'TasksShowCtrl',

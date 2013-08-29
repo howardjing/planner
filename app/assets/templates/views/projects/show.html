@@ -10,6 +10,9 @@
     <button class="btn btn-default" ng-click="editProject()">
       <span class="glyphicon glyphicon-edit"></span> Edit Project
     </button>
+    <a ng-href="#/projects/{{project.id}}/trash" class="btn btn-default">
+      <span class="glyphicon glyphicon-trash"></span> Trashed Tasks
+    </a>
     <button class="btn btn-info" ng-click="addNewTask()">
       <span class="glyphicon glyphicon-plus"></span> New Task
     </button>

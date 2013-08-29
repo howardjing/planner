@@ -6,8 +6,8 @@ describe ProjectsController do
     Project.create! params
   end
 
-  def serialized_project(project, serializer = ProjectSerializer)
-    serializer.new(project, root: false).to_json
+  def serialized_project(project, serializer = ProjectSerializer, serializer_options = {})
+    serializer.new(project, {root: false}.merge(serializer_options)).to_json
   end
 
   let(:project) { create_project title: 'My awesome project', description: 'so nice' }
@@ -42,9 +42,29 @@ describe ProjectsController do
   end
 
   describe "GET /projects/:id.json" do
-    it "returns the requested project as json (without tasks)" do
+    let(:serializer) { Project::WithTasksSerializer }
+    let(:active_task) { project.tasks.create! title: 'active task' }
+    let(:trashed_task) { 
+      project.tasks.build(title: 'trashed task')
+      .tap { |t| t.trash }
+      .tap { |t| t.save! }
+    }
+
+    before do
+      active_task
+      trashed_task
+    end
+
+    it "returns the requested project as json (with active tasks but without trashed tasks)" do
       get "/projects/#{project.id}.json"
-      response.body.should == serialized_project(project, Project::WithTasksSerializer)
+      response.body.should == serialized_project(project, serializer)
+    end
+
+    context "trashed=true" do
+      it "returns the requested project as json (without active tasks but with trashed tasks)" do
+        get "/projects/#{project.id}.json?trashed=true"
+        response.body.should == serialized_project(project, serializer, trashed: true)
+      end
     end
   end
 

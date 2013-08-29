@@ -6,10 +6,10 @@ Planner::Application.routes.draw do
   root 'welcome#index'
 
   resources :projects, only: [:index, :show, :create, :update, :destroy] do
-    resources :tasks, only: [:show, :create, :update]
+    member { patch 'revive' }
 
-    member do
-      patch 'revive'
+    resources :tasks, only: [:show, :create, :update, :destroy] do
+      member { patch 'revive' }
     end
   end
 
