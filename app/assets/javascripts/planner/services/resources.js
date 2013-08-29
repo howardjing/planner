@@ -56,10 +56,10 @@ app.factory('PlannerResource', ['$resource', 'StateSynchronizer', function($reso
 }])
 
 app.factory('ProjectService', ['PlannerResource', function(PlannerResource) {
-  return PlannerResource('/projects/:id.json');
+  return PlannerResource('/projects/:id/:action.json');
 }])
 
 app.factory('TaskService', ['PlannerResource', function(PlannerResource) {
-  return PlannerResource('/projects/:projectId/tasks/:id.json');
+  return PlannerResource('/projects/:projectId/tasks/:id/:action.json');
 }])
   

@@ -1,6 +1,7 @@
 class Project
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Trashable
 
   has_many :tasks, order: 'updated_at DESC'
 

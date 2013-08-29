@@ -1,6 +1,7 @@
 class Task
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Trashable
   
   belongs_to :project
   after_save { project.touch }

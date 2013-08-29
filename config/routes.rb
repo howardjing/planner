@@ -5,7 +5,7 @@ Planner::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
-  resources :projects, only: [:index, :show, :create, :update] do
+  resources :projects, only: [:index, :show, :create, :update, :destroy] do
     resources :tasks, only: [:show, :create, :update]
   end
 

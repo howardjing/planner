@@ -1,5 +1,5 @@
-app.controller('ProjectsShowCtrl', ['$scope', '$log', '$modal', 'ProjectService', 'TaskService', 'project',
-function($scope, $log, $modal, ProjectService, TaskService, project) {
+app.controller('ProjectsShowCtrl', ['$scope', '$log', '$modal', '$location', 'ProjectService', 'TaskService', 'project',
+function($scope, $log, $modal, $location, ProjectService, TaskService, project) {
 
   $scope.project = project;
   $scope.projectState = ProjectService.getState();
@@ -31,6 +31,36 @@ function($scope, $log, $modal, ProjectService, TaskService, project) {
       }
     });  
   };
+
+  $scope.deleteProject = function() {
+    $modal.open({
+      templateUrl: 'assets/directives/confirmation_modal.html',
+      controller: 'ConfirmationModalCtrl',
+      resolve: {
+        message: function() {
+          return "Are you sure you want to delete " + $scope.project.title + "?"
+        },
+        yesText: function() {
+          return "Yes, delete it."
+        },
+        noText: function() {
+          return "No, don't delete it."
+        },
+        save: function() {
+          return function() {
+            var saving = ProjectService.delete({ id: $scope.project.id })
+            saving.$then(function(response) {
+              $location.path('/');
+            });
+            return saving;
+          }
+        },
+        state: function() {
+          return $scope.projectState;
+        }
+      }
+    })
+  }
 
   $scope.addNewTask = function() {
     $modal.open({

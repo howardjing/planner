@@ -5,6 +5,8 @@ describe Task do
   let(:proj1) { Project.create! title: 'Cool project' }
   let(:proj2) { Project.create! title: 'Lame project' }
 
+  it_behaves_like "a trashable"
+  
   it "has unique title relative to project" do
     proj1.tasks.create!(title: 'learn piano')
     
@@ -47,5 +49,5 @@ describe Task do
       valid_task.status = :completed
     }.to change { valid_task.valid? }.from(false).to(true)
   end
-  
+
 end

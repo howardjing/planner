@@ -1,7 +1,8 @@
 class ProjectsController < ApplicationController
 
   def index
-    projects = Project.all.order_by('updated_at DESC')
+    scope = params[:trashed] ? :trashed : :active
+    projects = Project.send(scope).order_by('updated_at DESC')
     respond_with projects, each_serializer: Project::WithTasksSerializer
   end
 
@@ -19,6 +20,13 @@ class ProjectsController < ApplicationController
   def update
     project = find_project
     project.update_attributes(project_params)
+    respond_with project
+  end
+
+  def destroy
+    project = find_project
+    project.trash
+    project.save
     respond_with project
   end
 

@@ -27,6 +27,15 @@ app.service('Breadcrumb', [function() {
       }, 
       parent: 'home' 
     },
+    projectsTrash: {
+      name: function() {
+        return 'trash'
+      },
+      path: function() {
+        return '#/projects/trash'
+      },
+      parent: 'projects'
+    },
     project: { 
       name: function() { 
         // TODO: make this method safer to use (ie resources can be nil, project can be nil, etc.)

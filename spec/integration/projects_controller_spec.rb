@@ -13,20 +13,32 @@ describe ProjectsController do
   let(:project) { create_project title: 'My awesome project', description: 'so nice' }
   
   describe "GET /projects.json" do
+    let(:serializer) { Project::WithTasksSerializer }
     before do
       @project1 = create_project title: 'My Cool Project', description: 'So cool'
       @project2 = create_project title: 'My other cool project', description: 'So not cool'
+      @trashed =  create_project title: 'My trashed project', in_trash: true
     end
 
-    it "returns the serialized projects" do
-      get '/projects.json'
-      projects = JSON.parse(response.body)
-      projects.count.should == 2
-      
-      serializer = Project::WithTasksSerializer
-      # the newest project is first
-      projects.to_json.should == '[' + serialized_project(@project2, serializer) + ',' + serialized_project(@project1, serializer) + ']'
-    end 
+    context "by default" do
+      it "returns the serialized projects without trashed projects" do
+        get '/projects.json'
+        projects = JSON.parse(response.body)
+        projects.count.should == 2
+        
+        # the newest project is first
+        projects.to_json.should == '[' + serialized_project(@project2, serializer) + ',' + serialized_project(@project1, serializer) + ']'
+      end 
+    end
+
+    context "trashed=true" do
+      it "returns only trashed projects" do
+        get '/projects.json?trashed=true'
+        projects = JSON.parse(response.body)
+        projects.count.should == 1
+        projects.to_json.should == '[' + serialized_project(@trashed, serializer) + ']'
+      end
+    end
   end
 
   describe "GET /projects/:id.json" do
@@ -62,6 +74,19 @@ describe ProjectsController do
       project.reload
       project.description.should == 'something cool'
       response.body.should == serialized_project(project)
+    end
+  end
+
+  describe "DELETE /projects/:id.json" do
+    before do
+      project
+    end
+    it "puts the requested project in the trash" do
+      Project.trashed.count.should == 0
+      expect {
+        delete "/projects/#{project.id}.json"
+      }. to change{ Project.active.count }.from(1).to(0)
+      Project.trashed.count.should == 1
     end
   end
 

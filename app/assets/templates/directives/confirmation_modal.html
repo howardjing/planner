@@ -1,0 +1,17 @@
+<plan-modal>
+    <display-errors errors="state.errors"></display-errors>
+    <div class="clearfix">
+      <h4>{{message}}</h4>
+      <div class="pull-right">
+        <span class="spinny glyphicon glyphicon-refresh" ng-show="state.isSyncing()"></span> {{state.context}} 
+        <button class="btn btn-default" ng-click="ok()" 
+          ng-disabled="state.isSyncing()">
+          {{ yesText || 'Yes' }}
+        </button>
+        <button class="btn btn-default" ng-click="cancel()" 
+          ng-disabled="state.isSyncing()">
+          {{ noText || 'No' }}
+        </button>
+      </div>
+    </div>
+</plan-modal>

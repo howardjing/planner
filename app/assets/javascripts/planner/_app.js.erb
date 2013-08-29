@@ -35,6 +35,15 @@ app.config(['$routeProvider', function($routeProvider) {
       }]
     }
   })
+  .when('/projects/trash', {
+    templateUrl: 'assets/views/projects/trash.html',
+    controller: 'ProjectsTrashCtrl',
+    resolve: {
+      crumb: ['Breadcrumb', function(Breadcrumb) {
+        Breadcrumb.setCrumb('projectsTrash');
+      }]
+    }
+  })
   .when('/projects/:id', {
     templateUrl: 'assets/views/projects/show.html',
     controller: 'ProjectsShowCtrl',

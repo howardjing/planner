@@ -4,6 +4,9 @@
     <div class="description">{{project.description}}</div>
   </div>
   <div class="controls pull-right">
+    <button class="btn btn-default" ng-click="deleteProject()">
+      <span class="glyphicon glyphicon-remove"></span> Delete Project
+    </button>
     <button class="btn btn-default" ng-click="editProject()">
       <span class="glyphicon glyphicon-edit"></span> Edit Project
     </button>
@@ -12,7 +15,6 @@
     </button>
   </div>
 </div>
-
 
 <div class="row">
   <div class="project">

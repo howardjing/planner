@@ -1,0 +1,13 @@
+<div class="heading row">
+  <div class="pull-left">
+    <h2 class="title">trashed projects</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="project" ng-repeat="project in projects">
+    <div class="title">{{project.title}}</div> 
+    <div class="description">{{project.description}}</div>
+    <tasks-renderer project="project" tasks="project.tasks"></tasks-renderer>
+  </div>
+</div>
