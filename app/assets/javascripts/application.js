@@ -12,5 +12,6 @@
 //
 //= require unstable/angular
 //= require unstable/angular-resource
+//= require unstable/angular-cookies
 //= require_tree ./angular-ui
 //= require_tree ./planner

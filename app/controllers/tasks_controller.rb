@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  skip_before_filter :authenticate!, only: [:show]
 
   def show
     task = find_task

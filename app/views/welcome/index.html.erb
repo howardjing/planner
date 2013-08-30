@@ -1,10 +1,17 @@
 <div id="main-wrapper" ng-app="app">
-  <header class="navbar navbar-default navbar-static-top">
+  <header class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
     <div class="container">
       <div class="row">
         <div class="navbar-header ">
           <a class="navbar-brand" href="#">planner</a>
         </div>
+        <ul class="nav navbar-nav navbar-right" ng-show="isSignedin">
+          <p class="navbar-text">
+            <span class="spinny glyphicon glyphicon-refresh" ng-show="state.isSyncing()"></span> {{state.context}}
+          </p>
+          <li><p class="navbar-text">hi {{username}}</p></li>
+          <li><button class="btn btn-default navbar-btn" ng-click="signout()">Sign out</button></li>
+        </ul>
       </div>
     </div>
   </header>
@@ -36,8 +43,11 @@
     <div class="container">
       <div class="row">
         <hr>
-        <p class="navbar-text pull-right">
-          My cool footer!
+        <ul class="nav navbar-nav navbar-right">
+          <p class="navbar-text">
+            My cool footer!
+          </p>
+        </ul>
       </div>
     </div>
   </footer>

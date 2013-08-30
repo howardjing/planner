@@ -5,6 +5,10 @@ Planner::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
 
+  namespace :auth do
+    resource :sessions, only: [:create, :destroy, :new]
+  end
+
   resources :projects, only: [:index, :show, :create, :update, :destroy] do
     member { patch 'revive' }
 

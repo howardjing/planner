@@ -9,13 +9,16 @@ app.factory('Alerts', ['$rootScope', '$timeout', function($rootScope, $timeout) 
     }, 200);
   })
 
-  // clear loading sign when route changes
-  $rootScope.$on('$routeChangeSuccess', function() {
+  var clearLoading = function() {
     state.loading = false;
     if (slowlyLoading) {
       $timeout.cancel(slowlyLoading);
     }
-  })
+  }
+  
+  // clear loading sign when route changes
+  $rootScope.$on('$routeChangeSuccess', clearLoading);
+  $rootScope.$on('$routeChangeError', clearLoading);
 
   return {
     state: state

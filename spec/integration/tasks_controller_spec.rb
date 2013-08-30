@@ -6,6 +6,7 @@ describe TasksController do
     serializer.new(task, root: false).to_json
   end
 
+  let(:user) { User.new }
   let(:project) { Project.create! title: 'Top Secret Project', description: 'no project description' }
   let(:task) { project.tasks.create! title: 'Top Secret Task', description: 'no task description' }
   
@@ -17,6 +18,7 @@ describe TasksController do
   end
 
   describe "POST /projects/:project_id/tasks.json" do
+    before { login_as user }
     it "creates the task and returns the created resource" do
       expect {
         post "/projects/#{project.id}/tasks.json", title: 'Another project for you', description: 'n/a'
@@ -32,6 +34,7 @@ describe TasksController do
   end
 
   describe "PATCH /projects/:project_id/tasks/:task_id.json" do
+    before { login_as user }
     it "updates the task" do
       patch "/projects/#{project.id}/tasks/#{task.id}.json", title: 'an updated task'
       task.reload
@@ -42,6 +45,7 @@ describe TasksController do
   end
 
   describe "DELETE /projects/:project_id/tasks/:task_id.json" do
+    before { login_as user }
     it "trashes the task" do
       expect {
         delete "/projects/#{project.id}/tasks/#{task.id}.json"
@@ -51,6 +55,7 @@ describe TasksController do
 
   describe "PATCH /projects/:project_id/tasks/:task_id/revive.json" do
     before do
+      login_as user
       task.trash
       task.save!
     end

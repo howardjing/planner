@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  skip_before_filter :authenticate!, only: [:index, :show]
 
   def index
     scope = params[:trashed] ? :trashed : :active

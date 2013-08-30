@@ -1,7 +1,9 @@
 require 'spec_helper'
 
-describe ProjectsController do 
+describe ProjectsController do
 
+  let(:user) { User.new }
+  
   def create_project(params)
     Project.create! params
   end
@@ -69,6 +71,8 @@ describe ProjectsController do
   end
 
   describe "POST /projects.json" do
+    before { login_as user }
+    
     it "creates a project on success" do
       expect {
         post '/projects.json', { title: 'New project', description: 'my description' }
@@ -89,6 +93,8 @@ describe ProjectsController do
   end
 
   describe "PATCH /projects/:id.json" do
+    before { login_as user }
+
     it "edits the requested project" do
       patch "/projects/#{project.id}.json", description: 'something cool'
       project.reload
@@ -99,6 +105,7 @@ describe ProjectsController do
 
   describe "DELETE /projects/:id.json" do
     before do
+      login_as user
       project
     end
     it "puts the requested project in the trash" do
@@ -113,6 +120,7 @@ describe ProjectsController do
   describe "PATCH /projects/:id/revive.json" do
     let(:project) { create_project(title: 'My trashed project', in_trash: true) }
     before do
+      login_as user
       project
     end
     it "takes the requested project out of the trash" do

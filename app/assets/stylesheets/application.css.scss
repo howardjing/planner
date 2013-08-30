@@ -77,6 +77,12 @@ footer.navbar {
     content: "/\0";
     padding: 0 1px 0 5px;
   }
+
+  /* to align breadcrumb with navbar at small resolutions */
+  /* probably doing something wrong with this */
+  @media(max-width: $screen-sm) {
+    margin-left: 15px;
+  }
 }
 
 .alert-loading {

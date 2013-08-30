@@ -62,4 +62,8 @@ app.factory('ProjectService', ['PlannerResource', function(PlannerResource) {
 app.factory('TaskService', ['PlannerResource', function(PlannerResource) {
   return PlannerResource('/projects/:projectId/tasks/:id/:action.json');
 }])
+
+app.factory('SessionService', ['PlannerResource', function(PlannerResource) {
+  return PlannerResource('/auth/sessions.json');
+}]);
   

@@ -18,6 +18,15 @@ app.service('Breadcrumb', [function() {
       },
       parent: null 
     },
+    signin: {
+      name: function() {
+        return 'signin'
+      },
+      path: function() {
+        return '#/signin'
+      },
+      parent: 'home'
+    },
     projects: { 
       name: function() { 
         return 'projects' 

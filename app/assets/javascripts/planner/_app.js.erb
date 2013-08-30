@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngResource', 'ui.bootstrap.modal', 'ui.bootstrap.collapse']);
+var app = angular.module('app', ['ngResource', 'ngCookies', 'ui.bootstrap.modal', 'ui.bootstrap.collapse']);
 
 // add csrf token to headers
 app.config(['$httpProvider', function($httpProvider) {
@@ -11,7 +11,12 @@ app.config(['$httpProvider', function($httpProvider) {
     }
   }
   $httpProvider.defaults.headers.common['X-CSRF-Token'] = csrfToken;
-}])
+}]);
+
+// redirect to login when 401
+app.config(["$httpProvider", function($httpProvider) {
+  $httpProvider.interceptors.push("SigninInterceptor");
+}]);
 
 // routing
 app.config(['$routeProvider', function($routeProvider) {
@@ -23,6 +28,15 @@ app.config(['$routeProvider', function($routeProvider) {
     resolve: {
       crumb: ['Breadcrumb', function(Breadcrumb) {
         Breadcrumb.setCrumb('projects');
+      }]
+    }
+  })
+  .when('/signin', {
+    templateUrl: 'assets/views/signin.html',
+    controller: 'NavbarCtrl', 
+    resolve: {
+      crumb: ['Breadcrumb', function(Breadcrumb) {
+        Breadcrumb.setCrumb('signin');
       }]
     }
   })
