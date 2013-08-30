@@ -4,18 +4,22 @@
     <div class="description">{{project.description}}</div>
   </div>
   <div class="controls pull-right">
-    <button class="btn btn-default" ng-click="deleteProject()">
-      <span class="glyphicon glyphicon-remove"></span> Delete Project
-    </button>
-    <button class="btn btn-default" ng-click="editProject()">
-      <span class="glyphicon glyphicon-edit"></span> Edit Project
-    </button>
+    <user-required>
+      <button class="btn btn-default" ng-click="deleteProject()">
+        <span class="glyphicon glyphicon-remove"></span> Delete Project
+      </button>
+      <button class="btn btn-default" ng-click="editProject()">
+        <span class="glyphicon glyphicon-edit"></span> Edit Project
+      </button>
+    </user-required>
     <a ng-href="#/projects/{{project.id}}/trash" class="btn btn-default">
       <span class="glyphicon glyphicon-trash"></span> Trashed Tasks
     </a>
-    <button class="btn btn-info" ng-click="addNewTask()">
-      <span class="glyphicon glyphicon-plus"></span> New Task
-    </button>
+    <user-required>
+      <button class="btn btn-info" ng-click="addNewTask()">
+        <span class="glyphicon glyphicon-plus"></span> New Task
+      </button>
+    </user-required>
   </div>
 </div>
 

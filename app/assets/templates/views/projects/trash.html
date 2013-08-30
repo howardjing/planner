@@ -8,11 +8,13 @@
   <div class="project" ng-repeat="project in projects">
     <div class="pull-right">
       <span ng-show="project == currentProject">{{state.context}}</span>
-      <button class="btn btn-default" ng-click="revive(project)">
-        <span class="glyphicon glyphicon-refresh" 
-          ng-class="{ 'spinny': project == currentProject && state.isSyncing()}">
-        </span> revive
-      </button> 
+      <user-required>
+        <button class="btn btn-default" ng-click="revive(project)">
+          <span class="glyphicon glyphicon-refresh" 
+            ng-class="{ 'spinny': project == currentProject && state.isSyncing()}">
+          </span> revive
+        </button> 
+      </user-required>
     </div>
     <div class="title">{{project.title}}</div> 
     <div class="description">{{project.description}}</div>

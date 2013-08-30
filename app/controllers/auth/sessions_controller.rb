@@ -1,6 +1,5 @@
 class Auth::SessionsController < ApplicationController
   skip_before_filter :authenticate!, only: [:new, :create]
-
   def new
     if warden.message
       render json: { errors: [warden.message] }, status: :unprocessable_entity

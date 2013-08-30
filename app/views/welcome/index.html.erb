@@ -5,12 +5,30 @@
         <div class="navbar-header ">
           <a class="navbar-brand" href="#">planner</a>
         </div>
-        <ul class="nav navbar-nav navbar-right" ng-show="isSignedin">
-          <p class="navbar-text">
+        <form class="navbar-form navbar-right" ng-if="!isSignedin">
+          <p class="navbar-text" ng-if="state.isSyncing()">
+            <span class="spinny glyphicon glyphicon-refresh" ng-show="state.isSyncing()"></span> {{state.context}}
+          </p>
+          <div class="form-group">
+            <input ng-model="user.login" type="text" class="form-control" placeholder="username or email">
+          </div>
+          <div class="form-group">
+            <input ng-model="user.password" type="password" class="form-control" placeholder="password">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-default" ng-click="signin()" ng-disabled="state.isSyncing()">Sign in</button>
+          </div>
+        </form>
+        <ul class="nav navbar-nav navbar-right" ng-if="isSignedin">
+          <p class="navbar-text" ng-if="state.isSyncing()">
             <span class="spinny glyphicon glyphicon-refresh" ng-show="state.isSyncing()"></span> {{state.context}}
           </p>
           <li><p class="navbar-text">hi {{username}}</p></li>
-          <li><button class="btn btn-default navbar-btn" ng-click="signout()">Sign out</button></li>
+          <li>
+            <button class="btn btn-default navbar-btn" ng-click="signout()" ng-disabled="state.isSyncing()">
+              Sign out
+            </button>
+          </li>
         </ul>
       </div>
     </div>

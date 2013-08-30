@@ -33,12 +33,14 @@
               <td>{{task.description | truncate:140}}</td>
               <td>
                 <div class="pull-right">
-                  <span ng-show="task == currentTask">{{state.context}}</span>
-                  <button class="btn btn-default" ng-click="revive(task)">
-                    <span class="glyphicon glyphicon-refresh" 
-                      ng-class="{ 'spinny': task == currentTask && state.isSyncing()}">
-                    </span> revive
-                  </button> 
+                  <user-required>
+                    <span ng-show="task == currentTask">{{state.context}}</span>
+                    <button class="btn btn-default" ng-click="revive(task)">
+                      <span class="glyphicon glyphicon-refresh" 
+                        ng-class="{ 'spinny': task == currentTask && state.isSyncing()}">
+                      </span> revive
+                    </button> 
+                  </user-required>
                 </div>
               </td>
             </tr>

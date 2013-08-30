@@ -44,6 +44,13 @@ body {
   padding-bottom: 80px;
 }
 
+
+header {
+  .navbar-form {
+    padding: 0;
+  }
+}
+
 footer.navbar {
   position: absolute;
   /*background: pink;*/

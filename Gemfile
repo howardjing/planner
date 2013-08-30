@@ -25,7 +25,6 @@ gem 'active_model_serializers'
 # authentication
 gem 'rails_warden'
 
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

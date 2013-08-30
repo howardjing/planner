@@ -3,14 +3,16 @@
     <h2 class="title">{{task.title}}</h2>
     <div class="description label" ng-class="task.status | humanize:'-'">{{task.status | humanize}}</div>
   </div>
-  <div class="controls pull-right">
-    <button class="btn btn-default" ng-click="deleteTask()">
-      <span class="glyphicon glyphicon-remove"></span> Delete Task
-    </button>
-    <button class="btn btn-default" ng-click="editTask()">
-      <span class="glyphicon glyphicon-edit"></span> Edit Task
-    </button>
-  </div>
+  <user-required>
+    <div class="controls pull-right">
+      <button class="btn btn-default" ng-click="deleteTask()">
+        <span class="glyphicon glyphicon-remove"></span> Delete Task
+      </button>
+      <button class="btn btn-default" ng-click="editTask()">
+        <span class="glyphicon glyphicon-edit"></span> Edit Task
+      </button>
+    </div>
+  </user-required>
 </div>
 
 <div class="row">
