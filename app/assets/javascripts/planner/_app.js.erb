@@ -65,7 +65,7 @@ app.config(['$routeProvider', function($routeProvider) {
       project: ['$q', '$route', 'ProjectService', 'Breadcrumb',
       function($q, $route, ProjectService, Breadcrumb) {
         var deferred = $q.defer();
-        ProjectService.get({id: $route.current.params.id}, 
+        ProjectService.get({id: $route.current.params.id, tagged_with: $route.current.params.tag}, 
           function(project) {
             Breadcrumb.setCrumb('project', { project: project });
             deferred.resolve(project);

@@ -8,6 +8,21 @@ function($scope, $log, $modal, $location, ProjectService, TaskService, project) 
   $scope.newTask = {};
   $scope.taskState = TaskService.getState();
 
+  $scope.$watch(function() { return $location.search().tag }, function(tag) {
+    $scope.tag = tag;
+  })
+  $scope.$watch('tag', function(tag) {
+    if (tag) {
+      $location.search('tag', tag)
+    } else {
+      $location.search('tag', null)
+    }
+  })
+
+  $scope.clearTag = function() {
+    $scope.tag = '';
+  }
+
   $scope.editProject = function () {
     $modal.open({
       templateUrl: 'assets/views/projects/form.html',

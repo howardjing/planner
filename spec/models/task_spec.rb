@@ -50,4 +50,35 @@ describe Task do
     }.to change { valid_task.valid? }.from(false).to(true)
   end
 
+  it "has unique tags" do
+    valid_task.tags = ['ehllo', 'ehllo', 'hi']
+    valid_task.tags.count.should == 2
+    %w(ehllo hi).each do |tag|
+      valid_task.tags.include?(tag).should be_true
+    end
+  end
+
+  describe ".tagged_with(tag)" do
+    let(:task1) { Task.create! title: 'cool task', tags: ['cool'], project: proj1 }
+    let(:task2) { Task.create! title: 'lame task', tags: ['lame'], project: proj1 }
+    
+    before do
+      task1
+      task2
+    end
+    
+    it "returns tasks tagged with the given tag" do
+      Task.tagged_with('cool').to_a.should == [task1]
+      Task.tagged_with('lame').to_a.should == [task2]
+    end
+
+    it "returns all tasks when tag is blank" do
+      tasks = Task.tagged_with('')
+      tasks.count.should == 2
+      [task1, task2].each do |t|
+        tasks.include?(t).should be_true
+      end
+    end
+  end
+
 end

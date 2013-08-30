@@ -8,7 +8,7 @@ describe Project::WithTasksSerializer do
   end
 
   def serializer(options = {})
-    described_class.new(project, { root: false}.merge(options) )
+    described_class.new(project, { root: false }.merge(options) )
   end
 
   it "serializes project with tasks" do
@@ -30,7 +30,8 @@ describe Project::WithTasksSerializer do
           id: second_task.id.to_s,
           title: 'cool task 2',
           description: 'woah 2',
-          status: :not_started
+          status: :not_started,
+          tags: []
         },
 
         # first task serialized last
@@ -38,7 +39,8 @@ describe Project::WithTasksSerializer do
           id: first_task.id.to_s,
           title: 'cool task',
           description: 'woah',
-          status: :not_started
+          status: :not_started,
+          tags: []
         }
       ]
     }.to_json
@@ -53,28 +55,64 @@ describe Project::WithTasksSerializer do
           id: second_task.id.to_s,
           title: 'cool task 2',
           description: 'woah 2',
-          status: :not_started
+          status: :not_started,
+          tags: []
         },
       ]
     }.to_json
   end
 
-  it "only serializes trashed tasks when trashed: true" do
-    project.save!
-    active_task = project.tasks.create! title: 'active task'
-    trashed_task = project.tasks.build(title: 'trashed task').tap { |t| t.trash }.tap { |t| t.save! }
-    serializer(trashed: true).to_json.should == {
-      id: project.id.to_s,
-      title: 'cool proj',
-      description: 'hey',
-      tasks: [
-        {
-          id: trashed_task.id.to_s,
-          title: 'trashed task',
-          description: '',
-          status: :not_started
-        }
-      ]
-    }.to_json
+  context "filters" do
+    let(:active_task) { project.tasks.create! title: 'active task' }
+    let(:trashed_task) { project.tasks.build(title: 'trashed task').tap { |t| t.trash }.tap { |t| t.save! } }
+    let(:tagged_task) { project.tasks.create! title: 'tagged task', tags: ['some tag'] }
+    before { project.save! }
+
+    def tasks_json(serializer)
+      JSON.parse(serializer.to_json)['tasks'].to_json
+    end
+
+    it "only includes tasks tagged with 'some tag' when tagged_with: 'some tag'" do
+      active_task
+      tagged_task
+
+      # when tag is present, only include tasks tagged with 'some tag'
+      tasks_json(serializer(tagged_with: 'some tag')).should == [{ 
+        id: tagged_task.id.to_s,
+        title: 'tagged task',
+        description: '',
+        status: :not_started,
+        tags: ['some tag']
+      }].to_json
+
+      # when tag is not present, include everybody
+      tasks_json(serializer(tagged_with: '')).should == [{
+        id: tagged_task.id.to_s,
+        title: 'tagged task',
+        description: '',
+        status: :not_started,
+        tags: ['some tag']
+      },
+      {
+        id: active_task.id.to_s,
+        title: 'active task',
+        description: '',
+        status: :not_started,
+        tags: []
+      }].to_json
+    end
+
+    it "filters out active tasks when trashed: true" do
+      active_task
+      trashed_task
+
+      tasks_json(serializer(trashed: true)).should == [{
+        id: trashed_task.id.to_s,
+        title: 'trashed task',
+        description: '',
+        status: :not_started,
+        tags: []
+      }].to_json
+    end
   end
 end

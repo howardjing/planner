@@ -1,0 +1,6 @@
+<ul class="taglist">
+  <li ng-repeat="tag in limitedTags">
+    <span class="label" ng-click="searchTags($event, tag)">{{tag}}</span>
+  </li>
+  <li ng-if="wasLimited">...</li>
+</ul>

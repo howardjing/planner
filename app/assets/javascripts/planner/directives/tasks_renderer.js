@@ -8,13 +8,13 @@ app.directive('tasksRenderer', ['$location', function($location) {
     },
     link: function(scope) {
       scope.tasksPath = function(project, task) {
-        return "projects/" + project.id + "/tasks/" + task.id;
+        return "/projects/" + project.id + "/tasks/" + task.id;
       }
 
       scope.redirectTo = function(event, path) {
         if (event.stopPropagation) event.stopPropagation();
         if (event.preventDefault) event.preventDefault();
-        $location.path(path);
+        $location.url(path);
       }
     }
   }

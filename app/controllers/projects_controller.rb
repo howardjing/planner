@@ -9,7 +9,10 @@ class ProjectsController < ApplicationController
 
   def show
     project = find_project
-    respond_with project, serializer: Project::WithTasksSerializer, trashed: params[:trashed]
+    respond_with project, { serializer: Project::WithTasksSerializer, 
+      tagged_with: params[:tagged_with], 
+      trashed: params[:trashed] == 'true'
+    }
   end
 
   def create

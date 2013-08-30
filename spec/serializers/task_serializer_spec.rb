@@ -9,7 +9,8 @@ describe TaskSerializer do
       id: task.id.to_s,
       title: 'cool task',
       description: 'task description',
-      status: :not_started
+      status: :not_started,
+      tags: []
     }.to_json
   end
 end

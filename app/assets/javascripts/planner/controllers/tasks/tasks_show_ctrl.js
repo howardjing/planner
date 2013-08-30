@@ -3,6 +3,7 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', '$location', 'task', 'TaskS
   
   $scope.task = task;
   $scope.project = task.project;
+  $scope.tags = task.tags;
   $scope.state = TaskService.getState();
 
   // should probably fetch this from rails

@@ -3,7 +3,11 @@ class Project::WithTasksSerializer < ProjectSerializer
 
   def tasks      
     scope = options[:trashed] ? :trashed : :active
+    tag = options[:tagged_with]
     limit = options[:limit] ? options[:limit] :  0
-    object.tasks.send(scope).limit(limit)
+
+    object.tasks.send(scope)
+      .tagged_with(tag)
+      .limit(limit)
   end
 end

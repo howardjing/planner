@@ -11,6 +11,7 @@ describe Task::WithProjectSerializer do
       title: 'my task',
       description: 'my task desc',
       status: :not_started,
+      tags: [],
       project: {
         id: project.id.to_s,
         title: 'my proj',

@@ -24,6 +24,10 @@
 </div>
 
 <div class="row">
+  <div ng-show="tag">
+    <span class="label label-info">{{tag}}</span>
+    [<a href ng-click="clearTag()">clear</a>]
+  </div>
   <div class="project">
     <tasks-renderer project="project" tasks="tasks"></tasks-renderer>
   </div>

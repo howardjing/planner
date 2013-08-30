@@ -167,3 +167,20 @@ table {
 .btn.btn-inline {
   line-height: 15px;
 }
+
+/* taglist */
+.taglist {
+  padding: 0;
+  li {
+    display: inline;
+    margin-right: 10px;
+  }
+  .label {
+    @include label-variant($label-info-bg);
+  }
+  .label:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: $label-link-hover-color;
+  }
+}

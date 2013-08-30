@@ -51,21 +51,40 @@ describe ProjectsController do
       .tap { |t| t.trash }
       .tap { |t| t.save! }
     }
+    let(:tagged_task) { project.tasks.create! title: 'tagged task', tags: ['mytag'] }
 
     before do
       active_task
-      trashed_task
     end
 
-    it "returns the requested project as json (with active tasks but without trashed tasks)" do
+    it "returns active tasks with any tag" do
       get "/projects/#{project.id}.json"
       response.body.should == serialized_project(project, serializer)
     end
 
-    context "trashed=true" do
-      it "returns the requested project as json (without active tasks but with trashed tasks)" do
-        get "/projects/#{project.id}.json?trashed=true"
-        response.body.should == serialized_project(project, serializer, trashed: true)
+    context "tagged_with" do
+      before { tagged_task }
+
+      it "returns only projects tagged with 'mytag'" do
+        get "/projects/#{project.id}.json?tagged_with=mytag"
+        response.body.should == serialized_project(project, serializer, tagged_with: 'mytag')        
+      end
+    end
+
+    context "trash" do
+      before { trashed_task }
+      describe "trashed=true" do
+        it "returns the requested project as json (without active tasks but with trashed tasks)" do
+          get "/projects/#{project.id}.json?trashed=true"
+          response.body.should == serialized_project(project, serializer, trashed: true)
+        end
+      end
+
+      describe "trashed=false" do
+        it "returns the requested project as json (with active tasks but without trashed tasks)" do
+          get "/projects/#{project.id}.json?trashed=false"
+          response.body.should == serialized_project(project, serializer)
+        end
       end
     end
   end
