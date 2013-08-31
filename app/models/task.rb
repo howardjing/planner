@@ -18,9 +18,10 @@ class Task
   validates_inclusion_of :status, in: [:not_started, :completed]
 
   scope :tagged_with, lambda { |tag| tag.blank? ? all : any_in(tags: tag) }
+
   def tags=(tags)
     if tags.present?
-      self[:tags] = tags.uniq
+      self[:tags] = tags.map(&:strip).uniq.find_all { |t| t.present? }
     else
       self[:tags] = []
     end

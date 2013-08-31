@@ -58,6 +58,11 @@ describe Task do
     end
   end
 
+  it "strips whitespace from tags" do
+    valid_task.tags = ['  sup  ', ' bros', '']
+    valid_task.tags.should == ['sup', 'bros']
+  end
+
   describe ".tagged_with(tag)" do
     let(:task1) { Task.create! title: 'cool task', tags: ['cool'], project: proj1 }
     let(:task2) { Task.create! title: 'lame task', tags: ['lame'], project: proj1 }

@@ -3,7 +3,6 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', '$location', 'task', 'TaskS
   
   $scope.task = task;
   $scope.project = task.project;
-  $scope.tags = task.tags;
   $scope.state = TaskService.getState();
 
   // should probably fetch this from rails
@@ -14,14 +13,17 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', '$location', 'task', 'TaskS
       controller: 'TasksFormCtrl',
       resolve: {
         task: function() {
-          return { title: $scope.task.title, description: $scope.task.description };
+          return { title: $scope.task.title, description: $scope.task.description, tags: $scope.task.tags };
         },
         save: function() {
           return function(task) {
+            console.log('the task: ')
+            console.log(task)
             var saving = TaskService.update({ projectId: $scope.project.id, id: $scope.task.id }, task);
             saving.$then(function(response) {
               $scope.task.title = response.data.title;
               $scope.task.description = response.data.description;
+              $scope.task.tags = response.data.tags;
             });
             return saving;
           }

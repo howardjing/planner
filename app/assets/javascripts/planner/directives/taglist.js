@@ -8,8 +8,11 @@ app.directive('taglist', ['$location', function($location) {
       path: '@'
     },
     link: function(scope) {
-      scope.limitedTags = scope.limit ? scope.tags.slice(0, scope.limit) : scope.tags;
-      scope.wasLimited = scope.limit && scope.tags.length > scope.limit
+      scope.$watchCollection('tags', function() {
+        scope.limitedTags = scope.limit ? scope.tags.slice(0, scope.limit) : scope.tags;
+        scope.wasLimited = scope.limit && scope.tags.length > scope.limit
+      });
+      
       scope.searchTags = function($event, tag) {
         $event.stopPropagation()
         if (scope.path) {

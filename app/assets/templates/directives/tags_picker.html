@@ -1,0 +1,8 @@
+<span class="tags-picker" ng-class="{'focused': focused}" ng-click="triggerFocus()">
+  <ul>
+    <li ng-repeat="tag in tags" class="tag">{{tag}} 
+      <span class="delete glyphicon glyphicon-remove" ng-click="deleteTag(tag)"></span> 
+    </li>
+    <li><input type="text" ng-model="currentTag" tags-input></li>
+  </ul>
+</span>

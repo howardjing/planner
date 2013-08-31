@@ -1,0 +1,38 @@
+.tags-picker.focused {
+  /* copy pasting form-control-focus mixin */
+  $color: $input-border-focus;
+  $color-rgba: rgba(red($color), green($color), blue($color), .6);
+  border-color: $color;
+  outline: 0;
+  @include box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px $color-rgba);
+}
+
+.tags-picker {
+  height: auto;
+  ul {
+    padding: 0;
+  }
+  li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  .tag {
+    background-color: $label-info-bg;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 2px;
+    color: #fff;
+    position: relative;
+  }
+
+  .delete:hover {
+    cursor: pointer;
+  }
+
+  input {
+    border: 0;
+  }
+  input:focus{
+    outline: 0;
+  }
+}

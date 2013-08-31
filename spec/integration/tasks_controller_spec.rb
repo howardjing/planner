@@ -21,14 +21,14 @@ describe TasksController do
     before { login_as user }
     it "creates the task and returns the created resource" do
       expect {
-        post "/projects/#{project.id}/tasks.json", title: 'Another project for you', description: 'n/a'
+        post "/projects/#{project.id}/tasks.json", title: 'Another project for you', description: 'n/a', tags: ['yoooo', 'sup']
       }.to change { Task.count }.from(0).to(1)
 
       task = Task.first
       task.project.should == project
       task.title.should == 'Another project for you'
       task.description.should == 'n/a'
-
+      task.tags.should == ['yoooo', 'sup']
       response.body.should == serialized_task(task)
     end
   end

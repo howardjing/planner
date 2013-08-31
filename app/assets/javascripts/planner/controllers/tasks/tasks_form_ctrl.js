@@ -1,7 +1,7 @@
 app.controller('TasksFormCtrl', ['$scope', '$modalInstance', 'task', 'save', 'state', 
 function($scope, $modalInstance, task, save, state) {
   
-  $scope.task = angular.extend({}, task);
+  $scope.task = angular.copy(task);
   $scope.state = state;
 
   $scope.ok = function() {

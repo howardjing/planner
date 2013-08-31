@@ -21,6 +21,9 @@
 @import "planner/projects";
 @import "planner/tasks";
 
+/* tags picker */
+@import "planner/tags_picker";
+
 
 /* misc stuff */
 
@@ -173,7 +176,7 @@ table {
   padding: 0;
   li {
     display: inline;
-    margin-right: 10px;
+    margin-right: 4px;
   }
   .label {
     @include label-variant($label-info-bg);
@@ -184,3 +187,5 @@ table {
     color: $label-link-hover-color;
   }
 }
+
+

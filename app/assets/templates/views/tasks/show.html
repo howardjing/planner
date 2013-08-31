@@ -34,8 +34,8 @@
   </div>
 </div>
 
-<div class="row" ng-show="tags.length > 0">
+<div class="row" ng-show="task.tags.length > 0">
   <h4>Tags</h4>
-  <taglist tags="tags" path="/projects/{{project.id}}"></taglist>
+  <taglist tags="task.tags" path="/projects/{{project.id}}"></taglist>
 </div>
 </div>
