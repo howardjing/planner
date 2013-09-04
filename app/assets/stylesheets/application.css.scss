@@ -84,7 +84,7 @@ footer.navbar {
   margin-bottom: 10px;
 
   li + li:before {
-    content: "/\0";
+    content: "/";
     padding: 0 1px 0 5px;
   }
 
