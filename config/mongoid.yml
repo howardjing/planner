@@ -1,3 +1,19 @@
+production:
+  sessions:
+    default:
+      database: planner_production
+      hosts:
+        - localhost:27017
+      options:
+  options:
+staging:
+  sessions:
+    default:
+      database: planner_staging
+      hosts:
+        - localhost:27017
+      options:
+  options:
 development:
   # Configure available database sessions. (required)
   sessions:
