@@ -9,7 +9,7 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', '$location', 'task', 'TaskS
   $scope.statuses = ['not_started', 'completed']
   $scope.editTask = function() {
     $modal.open({
-      templateUrl: 'assets/views/tasks/form.html',
+      templateUrl: "<%= asset_path 'views/tasks/form.html' %>",
       controller: 'TasksFormCtrl',
       resolve: {
         task: function() {
@@ -54,7 +54,7 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', '$location', 'task', 'TaskS
 
   $scope.deleteTask = function() {
     $modal.open({
-      templateUrl: 'assets/directives/confirmation_modal.html',
+      templateUrl: "<%= asset_path 'directives/confirmation_modal.html' %>",
       controller: 'ConfirmationModalCtrl',
       resolve: {
         message: function() {

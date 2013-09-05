@@ -25,7 +25,7 @@ function($scope, $log, $modal, $location, ProjectService, TaskService, project) 
 
   $scope.editProject = function () {
     $modal.open({
-      templateUrl: 'assets/views/projects/form.html',
+      templateUrl: "<%= asset_path 'views/projects/form.html' %>",
       controller: 'ProjectsFormCtrl',
       resolve: {
         project: function () {
@@ -49,7 +49,7 @@ function($scope, $log, $modal, $location, ProjectService, TaskService, project) 
 
   $scope.deleteProject = function() {
     $modal.open({
-      templateUrl: 'assets/directives/confirmation_modal.html',
+      templateUrl: "<%= asset_path 'directives/confirmation_modal.html' %>",
       controller: 'ConfirmationModalCtrl',
       resolve: {
         message: function() {
@@ -79,7 +79,7 @@ function($scope, $log, $modal, $location, ProjectService, TaskService, project) 
 
   $scope.addNewTask = function() {
     $modal.open({
-      templateUrl: 'assets/views/tasks/form.html',
+      templateUrl: "<%= asset_path 'views/tasks/form.html' %>",
       controller: 'TasksFormCtrl',
       resolve: {
         task: function() {

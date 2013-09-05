@@ -1,7 +1,7 @@
 app.directive('taglist', ['$location', function($location) {
   return {
     restrict: 'E',
-    templateUrl: 'assets/directives/taglist.html',
+    templateUrl: "<%= asset_path 'directives/taglist.html' %>",
     scope: { 
       tags: '=',
       limit: '@',

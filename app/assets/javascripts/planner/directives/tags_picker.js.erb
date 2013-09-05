@@ -3,7 +3,7 @@ app.directive('tagsPicker', [function() {
     restrict: 'E',
     replace: true,
     require: 'ngModel',
-    templateUrl: 'assets/directives/tags_picker.html',
+    templateUrl: "<%= asset_path 'directives/tags_picker.html' %>",
     link: function(scope, element, attrs, ngModel) {
       scope.$watchCollection('tags', function(tags) {
         ngModel.$setViewValue(tags);

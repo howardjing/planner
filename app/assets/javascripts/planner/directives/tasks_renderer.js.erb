@@ -1,7 +1,7 @@
 app.directive('tasksRenderer', ['$location', function($location) {
   return {
     restrict: 'E',
-    templateUrl: 'assets/directives/tasks_renderer.html',
+    templateUrl: "<%= asset_path 'directives/tasks_renderer.html' %>",
     scope: {
       project: '=',
       tasks: '='

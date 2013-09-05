@@ -22,7 +22,7 @@ app.config(["$httpProvider", function($httpProvider) {
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
   .when('/', { 
-    templateUrl: 'assets/views/projects/index.html',
+    templateUrl: "<%= asset_path 'views/projects/index.html' %>",
     controller: 'ProjectsIndexCtrl',
     // abusing the resolve object to set the breadcrumb
     resolve: {
@@ -32,7 +32,7 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   })
   .when('/signin', {
-    templateUrl: 'assets/views/signin.html',
+    templateUrl: "<%= asset_path 'views/signin.html' %>",
     controller: 'NavbarCtrl', 
     resolve: {
       crumb: ['Breadcrumb', function(Breadcrumb) {
@@ -41,7 +41,7 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   })
   .when('/projects', { 
-    templateUrl: 'assets/views/projects/index.html',
+    templateUrl: "<%= asset_path 'views/projects/index.html' %>",
     controller: 'ProjectsIndexCtrl',
     resolve: {
       crumb: ['Breadcrumb', function(Breadcrumb) {
@@ -50,7 +50,7 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   })
   .when('/projects/trash', {
-    templateUrl: 'assets/views/projects/trash.html',
+    templateUrl: "<%= asset_path 'views/projects/trash.html' %>",
     controller: 'ProjectsTrashCtrl',
     resolve: {
       crumb: ['Breadcrumb', function(Breadcrumb) {
@@ -59,7 +59,7 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   })
   .when('/projects/:id', {
-    templateUrl: 'assets/views/projects/show.html',
+    templateUrl: "<%= asset_path 'views/projects/show.html' %>",
     controller: 'ProjectsShowCtrl',
     resolve: {
       project: ['$q', '$route', 'ProjectService', 'Breadcrumb',
@@ -77,7 +77,7 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   })
   .when('/projects/:id/trash', {
-    templateUrl: 'assets/views/tasks/trash.html',
+    templateUrl: "<%= asset_path 'views/tasks/trash.html' %>",
     controller: 'TasksTrashCtrl',
     resolve:  {
       project: ['$q', '$route', 'ProjectService', 'Breadcrumb',
@@ -95,7 +95,7 @@ app.config(['$routeProvider', function($routeProvider) {
     }
   })
   .when('/projects/:projectId/tasks/:id', {
-    templateUrl: 'assets/views/tasks/show.html',
+    templateUrl: "<%= asset_path 'views/tasks/show.html' %>",
     controller: 'TasksShowCtrl',
     resolve: {
       task: ['$q', '$route', 'TaskService', 'Breadcrumb',

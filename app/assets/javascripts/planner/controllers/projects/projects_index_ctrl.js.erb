@@ -7,7 +7,7 @@ function($scope, $log, $modal, ProjectService) {
 
   $scope.addNewProject = function () {
     $modal.open({
-      templateUrl: 'assets/views/projects/form.html',
+      templateUrl: "<%= asset_path 'views/projects/form.html' %>",
       controller: 'ProjectsFormCtrl',
       resolve: {
         project: function () {

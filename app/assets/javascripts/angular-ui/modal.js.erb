@@ -55,7 +55,7 @@ angular.module('ui.bootstrap.modal', [])
       restrict: 'EA',
       scope: {},
       replace: true,
-      templateUrl: 'assets/template/modal/backdrop.html',
+      templateUrl: "<%= asset_path 'template/modal/backdrop.html' %>",
       link: function (scope, element, attrs) {
 
         //trigger CSS transitions
@@ -82,7 +82,7 @@ angular.module('ui.bootstrap.modal', [])
       scope: {},
       replace: true,
       transclude: true,
-      templateUrl: 'assets/template/modal/window.html',
+      templateUrl: "<%= asset_path 'template/modal/window.html' %>",
       link: function (scope, element, attrs) {
         //trigger CSS transitions
         $timeout(function () {
