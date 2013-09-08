@@ -5,7 +5,6 @@ require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 
 set :application, "planner"
-set :repository,  "git@github.com:howardjing/#{application}.git"
 
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`

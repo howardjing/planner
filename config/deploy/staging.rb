@@ -1,3 +1,4 @@
+set :repository,  "howard@git.dev:#{application}.git"
 set :rails_env, "staging"
 
 role :web, "staging.planner.dev"                          # Your HTTP server, Apache/etc

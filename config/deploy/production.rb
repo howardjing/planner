@@ -1,3 +1,4 @@
+set :repository,  "git@github.com:howardjing/#{application}.git"
 set :rails_env, "production"
 
 role :web, "production.planner.dev"                          # Your HTTP server, Apache/etc
