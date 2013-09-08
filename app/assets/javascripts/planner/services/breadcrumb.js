@@ -87,9 +87,6 @@ app.service('Breadcrumb', [function() {
   }
 
   return {
-    // expose the current crumb for watching
-    crumbs: storage,
-
     // retrieve full path to the breadcrumb
     getCrumbs: function() {
       return getCrumbs(storage.currentCrumb);

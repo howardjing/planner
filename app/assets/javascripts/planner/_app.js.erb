@@ -26,8 +26,9 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'ProjectsIndexCtrl',
     // abusing the resolve object to set the breadcrumb
     resolve: {
-      crumb: ['Breadcrumb', function(Breadcrumb) {
+      meta: ['Breadcrumb', 'Meta', function(Breadcrumb, Meta) {
         Breadcrumb.setCrumb('projects');
+        Meta.setTitle('Planner');
       }]
     }
   })
@@ -35,8 +36,9 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: "<%= asset_path 'views/signin.html' %>",
     controller: 'NavbarCtrl', 
     resolve: {
-      crumb: ['Breadcrumb', function(Breadcrumb) {
+      meta: ['Breadcrumb', 'Meta', function(Breadcrumb, Meta) {
         Breadcrumb.setCrumb('signin');
+        Meta.setTitle('Planner: Signin');
       }]
     }
   })
@@ -44,8 +46,9 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: "<%= asset_path 'views/projects/index.html' %>",
     controller: 'ProjectsIndexCtrl',
     resolve: {
-      crumb: ['Breadcrumb', function(Breadcrumb) {
+      meta: ['Breadcrumb', 'Meta', function(Breadcrumb, Meta) {
         Breadcrumb.setCrumb('projects');
+        Meta.setTitle('Planner: projects');
       }]
     }
   })
@@ -53,8 +56,9 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: "<%= asset_path 'views/projects/trash.html' %>",
     controller: 'ProjectsTrashCtrl',
     resolve: {
-      crumb: ['Breadcrumb', function(Breadcrumb) {
+      meta: ['Breadcrumb', 'Meta', function(Breadcrumb, Meta) {
         Breadcrumb.setCrumb('projectsTrash');
+        Meta.setTitle('Planner: projects trash');
       }]
     }
   })
@@ -62,12 +66,13 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: "<%= asset_path 'views/projects/show.html' %>",
     controller: 'ProjectsShowCtrl',
     resolve: {
-      project: ['$q', '$route', 'ProjectService', 'Breadcrumb',
-      function($q, $route, ProjectService, Breadcrumb) {
+      project: ['$q', '$route', 'ProjectService', 'Breadcrumb', 'Meta',
+      function($q, $route, ProjectService, Breadcrumb, Meta) {
         var deferred = $q.defer();
         ProjectService.get({id: $route.current.params.id, tagged_with: $route.current.params.tag}, 
           function(project) {
             Breadcrumb.setCrumb('project', { project: project });
+            Meta.setTitle('Planner: ' + project.title);
             deferred.resolve(project);
           }, function(response) {
             deferred.reject(response.data);
@@ -80,12 +85,13 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: "<%= asset_path 'views/tasks/trash.html' %>",
     controller: 'TasksTrashCtrl',
     resolve:  {
-      project: ['$q', '$route', 'ProjectService', 'Breadcrumb',
-      function($q, $route, ProjectService, Breadcrumb) {
+      project: ['$q', '$route', 'ProjectService', 'Breadcrumb', 'Meta',
+      function($q, $route, ProjectService, Breadcrumb, Meta) {
         var deferred = $q.defer();
         ProjectService.get({id: $route.current.params.id, trashed: true },
           function(project) {
             Breadcrumb.setCrumb('tasksTrash', { project: project });
+            Meta.setTitle('Planner: ' + project.title + ' trash');
             deferred.resolve(project);
           }, function(response) {
             deferred.reject(response.data);
@@ -98,12 +104,13 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: "<%= asset_path 'views/tasks/show.html' %>",
     controller: 'TasksShowCtrl',
     resolve: {
-      task: ['$q', '$route', 'TaskService', 'Breadcrumb',
-      function($q, $route, TaskService, Breadcrumb) {
+      task: ['$q', '$route', 'TaskService', 'Breadcrumb', 'Meta',
+      function($q, $route, TaskService, Breadcrumb, Meta) {
         var deferred = $q.defer();
         TaskService.get({projectId: $route.current.params.projectId, id: $route.current.params.id},
           function(task) {
             Breadcrumb.setCrumb('task', { task: task, project: task.project });
+            Meta.setTitle('Planner: ' + task.title)
             deferred.resolve(task);
           }, function(response) {
             deferred.reject(response.data);
