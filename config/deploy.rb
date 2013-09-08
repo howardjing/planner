@@ -47,15 +47,21 @@ namespace :deploy do
     end
   end
 
+  CONFIG_FILES = %w(mongoid application)
+
   task :setup_config, roles: :app do
     run "mkdir -p #{shared_path}/config"
-    put File.read("config/mongoid.example.yml"), "#{shared_path}/config/mongoid.yml"
+    CONFIG_FILES.each do |file|
+      put File.read("config/#{file}.example.yml"), "#{shared_path}/config/#{file}.yml"
+    end
     puts "Now edit the config files in #{shared_path}."
   end
   after "deploy:setup", "deploy:setup_config"
 
   task :symlink_config, roles: :app do
-    run "ln -nfs #{shared_path}/config/mongoid.yml #{release_path}/config/mongoid.yml"
+    CONFIG_FILES.each do |file|
+      run "ln -nfs #{shared_path}/config/#{file}.yml #{release_path}/config/#{file}.yml"
+    end
   end
   after "deploy:finalize_update", "deploy:symlink_config"
 end
