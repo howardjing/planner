@@ -14,7 +14,7 @@ app.controller('NavbarCtrl', ['$scope', '$window', 'CurrentUser', 'SessionServic
 
   $scope.signin = function() {
     SessionService.save($scope.user).$then(function() {
-      $window.location.href = '/#' + AfterSignin.path();
+      $window.location.href = '#!' + AfterSignin.path();
     });
   }
 

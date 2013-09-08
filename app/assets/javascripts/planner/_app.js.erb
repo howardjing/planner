@@ -18,6 +18,11 @@ app.config(["$httpProvider", function($httpProvider) {
   $httpProvider.interceptors.push("SigninInterceptor");
 }]);
 
+// use hashbang with ! prefix
+app.config(["$locationProvider", function($locationProvider) {
+  $locationProvider.html5Mode(false).hashPrefix('!');
+}]);
+
 // routing
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider

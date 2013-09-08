@@ -3,10 +3,10 @@
     <div class="container">
       <div class="row">
         <div class="navbar-header ">
-          <a class="navbar-brand" href="#">planner</a>
+          <a class="navbar-brand" href="/">planner</a>
         </div>
         <form class="navbar-form navbar-right" ng-if="!isSignedin">
-          <a href="/#/signin" class="btn btn-default">Sign in</a>
+          <a href="#!/signin" class="btn btn-default">Sign in</a>
         </form>
         <ul class="nav navbar-nav navbar-right" ng-if="isSignedin">
           <p class="navbar-text" ng-if="state.isSyncing()">

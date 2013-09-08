@@ -1,10 +1,12 @@
-app.service('Breadcrumb', [function() {
+app.service('Breadcrumb', ['$location', function($location) {
   
   // by default be on the home page
   var storage = {
     currentCrumb: 'home',
     resources: {}
   }
+  
+  var hashBang = '#!';
 
   // storing breadcrumbs as a tree
   // not sure how maintainable this will be
@@ -14,7 +16,7 @@ app.service('Breadcrumb', [function() {
         return 'home' 
       }, 
       path: function() {
-        return '#/'
+        return '/'
       },
       parent: null 
     },
@@ -23,7 +25,7 @@ app.service('Breadcrumb', [function() {
         return 'signin'
       },
       path: function() {
-        return '#/signin'
+        return hashBang + '/signin'
       },
       parent: 'home'
     },
@@ -32,7 +34,7 @@ app.service('Breadcrumb', [function() {
         return 'projects' 
       }, 
       path: function() {
-        return '#/projects'
+        return hashBang + '/projects'
       }, 
       parent: 'home' 
     },
@@ -41,7 +43,7 @@ app.service('Breadcrumb', [function() {
         return 'trash'
       },
       path: function() {
-        return '#/projects/trash'
+        return hashBang + '/projects/trash'
       },
       parent: 'projects'
     },
@@ -51,7 +53,7 @@ app.service('Breadcrumb', [function() {
         return storage.resources.project.title;
       }, 
       path: function() {
-        return '#/projects/' + storage.resources.project.id;
+        return hashBang + '/projects/' + storage.resources.project.id;
       },
       parent: 'projects'
     },
@@ -60,7 +62,7 @@ app.service('Breadcrumb', [function() {
         return 'trash'
       },
       path: function() {
-        return '#/projects/' + storage.resources.project.id + '/trash';
+        return hashBang + '/projects/' + storage.resources.project.id + '/trash';
       },
       parent: 'project'
     },
@@ -69,7 +71,7 @@ app.service('Breadcrumb', [function() {
         return storage.resources.task.title;
       },
       path: function() {
-        return '#/projects/' + storage.resources.project.id + '/tasks' + storage.resources.task.id;
+        return hashBang + '/projects/' + storage.resources.project.id + '/tasks' + storage.resources.task.id;
       },
       parent: 'project'
     }

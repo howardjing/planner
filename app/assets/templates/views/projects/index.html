@@ -3,7 +3,7 @@
     <h2 class="title">projects</h2>
   </div>
   <div class="controls pull-right">
-    <a href="/#/projects/trash" class="btn btn-default">
+    <a href="#!/projects/trash" class="btn btn-default">
       <span class="glyphicon glyphicon-trash"></span> Trashed Projects
     </a>
     <user-required>
@@ -16,7 +16,7 @@
 
 <div class="row">
   <div class="project" ng-repeat="project in projects">
-    <a ng-href="/#projects/{{project.id}}" class="project-link">
+    <a ng-href="#!/projects/{{project.id}}" class="project-link">
       <div class="title">{{project.title}}</div> 
       <div class="description">{{project.description}}</div>
     </a>
