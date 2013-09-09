@@ -1,3 +1,7 @@
 ga:
   account: UA-XXXXXXX-XX
   domain:  my.cool.domain.com
+
+# how many seconds to delay all non asset requests for
+# (only used in development so this is optional)
+delay: 0
