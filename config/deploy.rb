@@ -1,9 +1,9 @@
-set :stages, %w(production staging)
-set :default_stage, "staging"
-set :user, "deployer"
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 
+set :stages, %w(production staging)
+set :default_stage, "staging"
+set :user, "deployer"
 set :application, "planner"
 
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names

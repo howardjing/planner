@@ -25,5 +25,5 @@ Planner::Application.configure do
   config.assets.debug = true
 
   # delay responses in development
-  config.middleware.use 'RunSlower', $CONFIG[:delay]
+  config.middleware.use RunSlower, $CONFIG[:delay]
 end

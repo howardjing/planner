@@ -84,6 +84,10 @@ GEM
       net-ssh (>= 2.6.5)
     origin (1.1.0)
     polyglot (0.3.3)
+    puma (2.5.1)
+      rack (>= 1.1, < 2.0)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -164,6 +168,8 @@ DEPENDENCIES
   capistrano
   database_cleaner
   mongoid!
+  puma
+  quiet_assets
   rails (= 4.0.0)
   rails_warden
   rspec-rails
