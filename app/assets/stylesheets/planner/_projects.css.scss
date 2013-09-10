@@ -10,12 +10,14 @@ a.project-link {
   @include make-item();
 }
 
-.project {
+.project.empty {
+  padding: 15px;
+}
 
+.project {
   .tasks {
     margin: 10px 0;
   }
-
   .tasks-table {
     margin: 0;
   }

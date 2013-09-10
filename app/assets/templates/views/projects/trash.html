@@ -5,6 +5,11 @@
 </div>
 
 <div class="row">
+  <div ng-if="!projects.length">
+    <div class="project empty">
+      <span class="subtle">There are currently no trashed projects.</span>
+    </div>
+  </div>
   <div class="project" ng-repeat="project in projects">
     <div class="pull-right">
       <span ng-show="project == currentProject">{{state.context}}</span>
