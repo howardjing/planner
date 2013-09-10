@@ -1,8 +1,8 @@
 app.service('Breadcrumb', ['$location', function($location) {
   
-  // by default be on the home page
+  // by default be on nothing
   var storage = {
-    currentCrumb: 'home',
+    currentCrumb: null,
     resources: {}
   }
   

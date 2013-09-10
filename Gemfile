@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 # angularjs
-gem 'angularjs-rails'
+gem 'angularjs-rails', github: 'hiravgandhi/angularjs-rails'
 
 # mongodb
 gem 'mongoid', github: 'mongoid/mongoid'

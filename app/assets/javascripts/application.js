@@ -10,8 +10,9 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require unstable/angular
-//= require unstable/angular-resource
-//= require unstable/angular-cookies
+//= require angular
+//= require angular-resource
+//= require angular-cookies
+//= require angular-route
 //= require_tree ./angular-ui
 //= require_tree ./planner

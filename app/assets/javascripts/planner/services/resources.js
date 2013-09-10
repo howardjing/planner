@@ -2,7 +2,8 @@
 
 // when resource is syncing with server, add some helpful messages / error messages
 // right now, the only customizable portion is the url, will add more options as necessary
-app.factory('PlannerResource', ['$resource', 'StateSynchronizer', function($resource, StateSynchronizer) {
+app.factory('PlannerResource', ['$resource', '$location', 'StateSynchronizer', 
+  function($resource, $location, StateSynchronizer) {
 
   // create a resource from $resource with planner specific defaults
   var getResource = function(url) {
@@ -12,9 +13,16 @@ app.factory('PlannerResource', ['$resource', 'StateSynchronizer', function($reso
   var addStateToResourceMethod = function(resource, method, args, state) {
     state.syncing();
     var synchronizing = resource[method].apply(resource, args);
-    synchronizing.$then(function(response) {
+    synchronizing.$promise.then(function(response) {
       state.reset();
     }, function(response) {
+
+      // TODO: separate this out into it's own method if this gets any more complicated
+      // redirect to angular 404 page if the requested resource was not found
+      if (response.status == 404) {
+        $location.path('/404')
+      }
+
       state.failure(response.data.errors);
     });
     return synchronizing;

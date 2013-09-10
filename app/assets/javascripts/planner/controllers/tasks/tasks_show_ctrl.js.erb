@@ -17,13 +17,11 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', '$location', 'task', 'TaskS
         },
         save: function() {
           return function(task) {
-            console.log('the task: ')
-            console.log(task)
             var saving = TaskService.update({ projectId: $scope.project.id, id: $scope.task.id }, task);
-            saving.$then(function(response) {
-              $scope.task.title = response.data.title;
-              $scope.task.description = response.data.description;
-              $scope.task.tags = response.data.tags;
+            saving.$promise.then(function(task) {
+              $scope.task.title = task.title;
+              $scope.task.description = task.description;
+              $scope.task.tags = task.tags;
             });
             return saving;
           }
@@ -46,9 +44,9 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', '$location', 'task', 'TaskS
 
   $scope.saveStatus = function() {
     TaskService.update({ projectId: $scope.project.id, id: $scope.task.id }, { status: $scope.task.status }) 
-      .$then(function(response) {
-        $scope.persistedStatus = response.data.status;
-        $scope.task = response.data;
+      .$promise.then(function(task) {
+        $scope.persistedStatus = task.status;
+        $scope.task = task;
       });
   }
 
@@ -69,7 +67,7 @@ app.controller('TasksShowCtrl', ['$scope', '$modal', '$location', 'task', 'TaskS
         save: function() {
           return function() {
             var saving = TaskService.delete({ projectId: $scope.project.id, id: $scope.task.id })
-            saving.$then(function(response) {
+            saving.$promise.then(function() {
               $location.path('/projects/' + $scope.project.id);
             });
             return saving;

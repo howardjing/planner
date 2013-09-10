@@ -34,8 +34,8 @@ function($scope, $log, $modal, $location, ProjectService, TaskService, project) 
         save: function() {
           return function(project) {
             var saving = ProjectService.update({id: project.id}, project)
-            saving.$then(function(response) {
-              $scope.project = response.data;
+            saving.$promise.then(function(project) {
+              $scope.project = project;
             });
             return saving;
           }
@@ -64,7 +64,7 @@ function($scope, $log, $modal, $location, ProjectService, TaskService, project) 
         save: function() {
           return function() {
             var saving = ProjectService.delete({ id: $scope.project.id })
-            saving.$then(function(response) {
+            saving.$promise.then(function() {
               $location.path('/');
             });
             return saving;
@@ -88,8 +88,8 @@ function($scope, $log, $modal, $location, ProjectService, TaskService, project) 
         save: function() {
           return function(newTask) {
             var saving = TaskService.save({ projectId: $scope.project.id }, newTask);
-            saving.$then(function(response) {
-              $scope.tasks.unshift(response.data);
+            saving.$promise.then(function(task) {
+              $scope.tasks.unshift(task);
             });
             return saving;
           }

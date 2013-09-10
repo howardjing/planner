@@ -15,8 +15,8 @@ function($scope, $log, $modal, projects, ProjectService) {
         save: function() {
           return function(newProject) {
             var saving = ProjectService.save(newProject)
-            saving.$then(function(response) {
-              $scope.projects.unshift(response.data);
+            saving.$promise.then(function(project) {
+              $scope.projects.unshift(project);
             });
             return saving;
           }

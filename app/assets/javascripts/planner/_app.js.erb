@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngResource', 'ngCookies', 'ui.bootstrap.modal', 'ui.bootstrap.collapse']);
+var app = angular.module('app', ['ngRoute', 'ngResource', 'ngCookies', 'ui.bootstrap.modal', 'ui.bootstrap.collapse']);
 
 // add csrf token to headers
 app.config(['$httpProvider', function($httpProvider) {
@@ -140,4 +140,14 @@ app.config(['$routeProvider', function($routeProvider) {
       }]
     }
   })
+  .when('/404', { 
+    templateUrl: "<%= asset_path 'views/404.html' %>",
+    controller: angular.noop,
+    resolve: {
+      meta: ['Breadcrumb', function(Breadcrumb) {
+        Breadcrumb.setCrumb(null);
+      }]
+    }
+  })
+  .otherwise({ redirectTo: '/404' })
 }])

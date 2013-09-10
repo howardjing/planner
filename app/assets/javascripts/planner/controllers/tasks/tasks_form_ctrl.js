@@ -5,7 +5,7 @@ function($scope, $modalInstance, task, save, state) {
   $scope.state = state;
 
   $scope.ok = function() {
-    save($scope.task).$then(function() {
+    save($scope.task).$promise.then(function() {
       $modalInstance.close($scope.task);
     })
   };

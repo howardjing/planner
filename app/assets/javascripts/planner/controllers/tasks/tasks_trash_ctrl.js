@@ -9,7 +9,7 @@ app.controller('TasksTrashCtrl', ['$scope', 'project', 'TaskService',
   $scope.revive = function(task) {
     $scope.currentTask = task;
     TaskService.update({ projectId: $scope.project.id, id: task.id, action: 'revive' }, {})
-      .$then(function(response) {
+      .$promise.then(function() {
         var index = $scope.tasks.indexOf(task);
         $scope.tasks.splice(index, 1);
       })

@@ -13,13 +13,13 @@ app.controller('NavbarCtrl', ['$scope', '$window', 'CurrentUser', 'SessionServic
   })
 
   $scope.signin = function() {
-    SessionService.save($scope.user).$then(function() {
+    SessionService.save($scope.user).$promise.then(function() {
       $window.location.href = '#!' + AfterSignin.path();
     });
   }
 
   $scope.signout = function() {
-    SessionService.delete().$then(function() {
+    SessionService.delete().$promise.then(function() {
       $window.location.href = "/";
     });
   }

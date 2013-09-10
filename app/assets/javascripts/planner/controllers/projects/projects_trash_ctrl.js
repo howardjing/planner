@@ -5,7 +5,7 @@ app.controller('ProjectsTrashCtrl', ['$scope', 'ProjectService', function($scope
 
   $scope.revive = function(project) {
     $scope.currentProject = project;
-    ProjectService.update({ id: project.id, action: 'revive' }, {}).$then(function(response) {
+    ProjectService.update({ id: project.id, action: 'revive' }, {}).$promise.then(function() {
       var index = $scope.projects.indexOf(project);
       $scope.projects.splice(index, 1);
     })

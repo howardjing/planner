@@ -7,7 +7,7 @@ app.controller('ConfirmationModalCtrl', ['$scope', '$modalInstance', 'message', 
   $scope.state = state;
 
   $scope.ok = function() {
-    save().$then(function() {
+    save().$promise.then(function() {
       $modalInstance.close();
     })
   };
