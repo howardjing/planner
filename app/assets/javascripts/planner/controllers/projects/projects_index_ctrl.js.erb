@@ -1,7 +1,6 @@
-app.controller('ProjectsIndexCtrl', ['$scope', '$log', '$modal', 'ProjectService',
-function($scope, $log, $modal, ProjectService) {
-
-  $scope.projects = ProjectService.query();
+app.controller('ProjectsIndexCtrl', ['$scope', '$log', '$modal', 'projects', 'ProjectService',
+function($scope, $log, $modal, projects, ProjectService) {
+  $scope.projects = projects;
   $scope.newProject = {};
   $scope.state = ProjectService.getState();
 

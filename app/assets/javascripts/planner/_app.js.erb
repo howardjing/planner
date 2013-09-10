@@ -26,20 +26,10 @@ app.config(["$locationProvider", function($locationProvider) {
 // routing
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
-  .when('/', { 
-    templateUrl: "<%= asset_path 'views/projects/index.html' %>",
-    controller: 'ProjectsIndexCtrl',
-    // abusing the resolve object to set the breadcrumb
-    resolve: {
-      meta: ['Breadcrumb', 'Meta', function(Breadcrumb, Meta) {
-        Breadcrumb.setCrumb('projects');
-        Meta.setTitle('Planner');
-      }]
-    }
-  })
   .when('/signin', {
     templateUrl: "<%= asset_path 'views/signin.html' %>",
     controller: 'NavbarCtrl', 
+    // abusing the resolve object to set the breadcrumb
     resolve: {
       meta: ['Breadcrumb', 'Meta', function(Breadcrumb, Meta) {
         Breadcrumb.setCrumb('signin');
@@ -47,13 +37,39 @@ app.config(['$routeProvider', function($routeProvider) {
       }]
     }
   })
+  .when('/', { 
+    templateUrl: "<%= asset_path 'views/projects/index.html' %>",
+    controller: 'ProjectsIndexCtrl',
+    resolve: {
+      projects: ['$q', '$route', 'ProjectService', 'Breadcrumb', 'Meta', 
+      function($q, $route, ProjectService, Breadcrumb, Meta) {
+        Breadcrumb.setCrumb('projects');
+        Meta.setTitle('Planner');
+        var deferred = $q.defer();
+        ProjectService.query(function(projects) {
+          deferred.resolve(projects);
+        }, function(response) {
+          deferred.reject(response.data);
+        });
+        return deferred.promise;
+      }]
+    }
+  })
   .when('/projects', { 
     templateUrl: "<%= asset_path 'views/projects/index.html' %>",
     controller: 'ProjectsIndexCtrl',
     resolve: {
-      meta: ['Breadcrumb', 'Meta', function(Breadcrumb, Meta) {
+      projects: ['$q', '$route', 'ProjectService', 'Breadcrumb', 'Meta', 
+      function($q, $route, ProjectService, Breadcrumb, Meta) {
         Breadcrumb.setCrumb('projects');
         Meta.setTitle('Planner: projects');
+        var deferred = $q.defer();
+        ProjectService.query(function(projects) {
+          deferred.resolve(projects);
+        }, function(response) {
+          deferred.reject(response.data);
+        });
+        return deferred.promise;
       }]
     }
   })
