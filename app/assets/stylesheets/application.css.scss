@@ -188,4 +188,10 @@ table {
   }
 }
 
+a.hidden-link {
+  color: #000;
+}
+a.hidden-link:hover {
+  text-decoration: none;
+}
 

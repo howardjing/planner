@@ -20,7 +20,7 @@
       </thead>
       <tbody> 
         <tr class="link" ng-repeat="task in tasks" ng-click="redirectTo($event, tasksPath(project, task))">
-          <td>{{task.title}}</td>
+          <td><a class="hidden-link" ng-href="#!{{tasksPath(project, task)}}">{{task.title}}</a></td>
           <td><span class="label" ng-class="task.status | humanize:'-'">{{task.status | humanize}}</span></td>
           <td>{{task.description | truncate:140}}</td>
           <td><taglist tags="task.tags" limit="2" path="/projects/{{project.id}}"></taglist></td>
