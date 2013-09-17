@@ -10,6 +10,12 @@ app.service('Meta', [function() {
     },
     setTitle: function(title) {
       meta.title = title;
+    },
+    getDescription: function() {
+      return meta.description;
+    },
+    setDescription: function(description) {
+      meta.description = description;
     }
   }
 }]);
