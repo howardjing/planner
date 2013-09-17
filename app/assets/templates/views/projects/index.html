@@ -21,5 +21,8 @@
       <div class="description">{{project.description}}</div>
     </a>
     <tasks-renderer project="project" tasks="project.tasks"></tasks-renderer>
+    <a ng-href="#!/projects/{{project.id}}" ng-show="project.tasks.length >=5" class="pull-right">
+      show all tasks
+    </a>
   </div>
 </div>
