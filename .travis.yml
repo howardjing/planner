@@ -1,0 +1,5 @@
+language: ruby
+services: mongodb
+before_script:
+  - cp config/application.example.yml config/application.yml
+  - cp config/mongoid.example.yml config/mongoid.yml
