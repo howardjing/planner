@@ -33,6 +33,9 @@ end
 group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
+
+  # test coverage
+  gem 'simplecov', require: false
 end
 
 # Use ActiveModel has_secure_password
