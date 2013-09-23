@@ -74,4 +74,16 @@ app.factory('TaskService', ['PlannerResource', function(PlannerResource) {
 app.factory('SessionService', ['PlannerResource', function(PlannerResource) {
   return PlannerResource('/auth/sessions.json');
 }]);
+
+app.factory('TagsService', ['$http', function($http) {
+  return {
+    query: function(params) {
+      return $http({
+        method: "GET",
+        url: '/tags.json',
+        params: params
+      });
+    }
+  }
+}]);
   
