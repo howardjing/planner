@@ -35,7 +35,9 @@
         <ol class="breadcrumb">
           <li ng-repeat="crumb in breadcrumbs" ng-class="{ 'active' : isActive(crumb) }">
             <span ng-if="isActive(crumb)">{{crumb.name()}} </span>
-            <a ng-if="!isActive(crumb)" ng-href="{{crumb.path()}}">{{crumb.name()}} </a>
+            <span ng-if="!isActive(crumb)" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a ng-href="{{crumb.path()}}" itemprop="url"><span itemprop="title">{{crumb.name()}}</span></a>
+            </span>
           </li>
         </ol>
       </div>
