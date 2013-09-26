@@ -1,4 +1,8 @@
-var app = angular.module('app', ['ngRoute', 'ngResource', 'ngCookies', 'ui.bootstrap.modal', 'ui.bootstrap.collapse']);
+var app = angular.module('app', [
+  'ngRoute', 'ngResource', 'ngCookies', 
+  'ui.bootstrap.modal', 'ui.bootstrap.collapse', 
+  'tagpicker', 'tagpicker.templates'
+]);
 
 // add csrf token to headers
 app.config(['$httpProvider', function($httpProvider) {

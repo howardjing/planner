@@ -21,3 +21,6 @@
 
 # Ignore test coverage
 /coverage
+
+# Temporarily ignoring bower
+bower.json

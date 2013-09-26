@@ -1,0 +1,6 @@
+{
+  "name": "planner",
+  "dependencies": {
+    "angularjs-tagpicker": "../angularjs-tagpicker"
+  }
+}

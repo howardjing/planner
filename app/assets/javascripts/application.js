@@ -14,5 +14,9 @@
 //= require angular-resource
 //= require angular-cookies
 //= require angular-route
+
+//= require angularjs-tagpicker/tagpicker
+//= require angularjs-tagpicker/tagpicker-templates.html.js
+
 //= require_tree ./angular-ui
 //= require_tree ./planner
