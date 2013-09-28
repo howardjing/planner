@@ -1,5 +1,5 @@
-app.controller('TasksFormCtrl', ['$scope', '$modalInstance', 'task', 'save', 'state', 'TagsService',
-function($scope, $modalInstance, task, save, state, TagsService) {
+app.controller('TasksFormCtrl', ['$scope', '$q', '$modalInstance', 'task', 'save', 'state', 'TagsService',
+function($scope, $q, $modalInstance, task, save, state, TagsService) {
   
   $scope.task = angular.copy(task);
   $scope.state = state;
@@ -15,9 +15,14 @@ function($scope, $modalInstance, task, save, state, TagsService) {
     state.reset();
   };
 
-  $scope.findTags = function(search, results) {
-    TagsService.query({search: search}).success(function(data) {
-      results.data = data;
-    });
+  $scope.findTags = function(search) {
+    var deferred = $q.defer();
+    TagsService.query({search: search})
+      .success(function(results) {
+        deferred.resolve(results);
+      }).error(function(error) {
+        deferred.resolve(error);
+      });
+    return deferred.promise;
   }
 }]);

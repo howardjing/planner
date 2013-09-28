@@ -174,7 +174,7 @@
   }])
 
   // internal directive for handling autocompletion
-  .directive('tagAutocomplete', function() {
+  .directive('tagAutocomplete', ['$q', function($q) {
     return {
       restrict: 'A',
       controller: ['$scope', function(scope) {
@@ -182,8 +182,7 @@
         var hasAutocomplete = !!scope.autocomplete();
 
         if (hasAutocomplete) {
-
-          scope.results = { data: [] };
+          scope.results = [];
 
           scope.$watch('currentTag', function(value) {
             if (!value) {
@@ -191,28 +190,53 @@
             }
           });
 
+          var previousSearch = $q.defer();
+
           // query autocomplete function appropriately
           scope.$watch('currentTag', function(value) {
-            if (hasValidTag(value)) {
-              scope.autocomplete()(value, scope.results);
-            } else {
-              scope.results.data = [];
-            }
-          });
+            // the previous search is now invalid so reject it
+            previousSearch.reject();
 
-          // insert current user input into results appropriately
-          scope.$watchCollection('results.data', function(results) {
-            if (hasValidTag(scope.currentTag) && 
-              results.indexOf(scope.currentTag) === -1) {
-              results.unshift(scope.currentTag);
-            }
+            // set up the proper behavior for once this search is resolved
+            previousSearch = $q.defer();
+            previousSearch.promise.then(function(results) {
+              scope.results = results;
+            }, function() {
+              scope.results = [];
+            });
+
+            // make sure that we are resolving or rejecting the correct
+            // previous search (if don't have this closure then previousSearch
+            // will reference the latest previousSearch defined, rather than 
+            // the previousSearch created for this currentTag value) 
+            (function(previousSearch) {
+              var autocompleteResults;
+
+              // only execute autocomplete function when there is a valid tag
+              if (hasValidTag(value)) {
+                autocompleteResults = scope.autocomplete()(value);
+              } else {
+                autocompleteResults = [];
+              }
+
+              $q.when(autocompleteResults).then(function(results) {
+                console.log(results)
+                // insert current user input into results appropriately
+                if (hasValidTag(value) && results.indexOf(value) === -1) {
+                  results.unshift(value);
+                }
+                previousSearch.resolve(results);
+              }, function() {
+                previousSearch.reject();
+              });
+            })(previousSearch);
           });
         }
 
         // defining controller methods
         if (hasAutocomplete) {
           this.getSelection = function() {
-            return scope.results.data[scope.selectedTagIndex];
+            return scope.results[scope.selectedTagIndex];
           };
 
           this.selectPrevious = function() {
@@ -222,22 +246,24 @@
           };
 
           this.selectNext = function() {
-            if (scope.selectedTagIndex < scope.results.data.length -1) {
+            if (scope.selectedTagIndex < scope.results.length -1) {
               scope.selectedTagIndex += 1;
             }
           };
 
           this.selectResult = function(result) {
-            scope.selectedTagIndex = scope.results.data.indexOf(result);
+            scope.selectedTagIndex = scope.results.indexOf(result);
           };
         } else { 
           // tagAutocomplete must implement these methods no matter what
-          var controllerMethods = ['getSelection', 'selectPrevious', 'selectNext'];
+          var controllerMethods = [
+            'getSelection', 'selectPrevious', 'selectNext'
+          ];
           angular.forEach(controllerMethods, function(method) {
             self[method] = angular.noop;
           });
         }
       }]
     };
-  });
+  }]);
 })();

@@ -12,10 +12,10 @@ angular.module("templates/tagpicker.html", []).run(["$templateCache", function($
     "        ng-model=\"currentTag\" tag-input\n" +
     "      >\n" +
     "    </li>\n" +
-    "    <li class=\"results\" ng-show=\"results.data.length > 0\">\n" +
+    "    <li class=\"results\" ng-show=\"results.length > 0\">\n" +
     "      <ul>\n" +
-    "        <li class=\"result\" ng-repeat=\"result in results.data\" \n" +
-    "          ng-class=\"{ 'selected': result == getSelection()}\"\n" +
+    "        <li class=\"result\" ng-repeat=\"result in results\"\n" +
+    "          ng-class=\"{ 'selected': result == getSelection() }\"\n" +
     "          ng-mouseover=\"selectResult(result)\"\n" +
     "          ng-mousedown=\"createNewTag(result)\">{{result}}\n" +
     "        </li>\n" +
