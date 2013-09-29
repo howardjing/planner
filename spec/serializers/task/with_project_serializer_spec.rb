@@ -15,7 +15,9 @@ describe Task::WithProjectSerializer do
       project: {
         id: project.id.to_s,
         title: 'my proj',
-        description: 'my proj desc'
+        description: 'my proj desc',
+        site_url: '',
+        code_url: ''
       }
     }.to_json
   end

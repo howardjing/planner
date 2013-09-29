@@ -1,0 +1,9 @@
+app.directive('projectSummary', [function() {
+  return {
+    restrict: 'E',
+    templateUrl: '<%= asset_path "directives/project_summary.html" %>',
+    scope: {
+      project: '='
+    }
+  }
+}])

@@ -6,15 +6,12 @@ a.project-link {
   }
 }
 
-.project {
-  @include make-item();
-}
-
 .project.empty {
   padding: 15px;
 }
 
 .project {
+  @include make-item();
   .tasks {
     margin: 10px 0;
   }
@@ -22,3 +19,19 @@ a.project-link {
     margin: 0;
   }
 }  
+
+.code-url {
+  padding-top: 10px;
+}
+
+.project-summary {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  li {
+    display: inline;
+    color: black;
+    margin-right:0;
+  }
+}

@@ -17,8 +17,7 @@
 <div class="row">
   <div class="project" ng-repeat="project in projects">
     <a ng-href="#!/projects/{{project.id}}" class="project-link">
-      <div class="title">{{project.title}}</div> 
-      <div class="description">{{project.description}}</div>
+      <project-summary project="project"></project-summary>
     </a>
     <tasks-renderer project="project" tasks="project.tasks"></tasks-renderer>
     <a ng-href="#!/projects/{{project.id}}" ng-show="project.tasks.length >=5" class="pull-right">

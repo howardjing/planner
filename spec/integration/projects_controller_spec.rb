@@ -115,9 +115,15 @@ describe ProjectsController do
     before { login_as user }
 
     it "edits the requested project" do
-      patch "/projects/#{project.id}.json", description: 'something cool'
+      patch("/projects/#{project.id}.json", { 
+        description: 'something cool', 
+        site_url: 'http://www.example.com',
+        code_url: 'http://www.anotherexample.com' 
+      })
       project.reload
       project.description.should == 'something cool'
+      project.site_url.should == 'http://www.example.com'
+      project.code_url.should == 'http://www.anotherexample.com'
       response.body.should == serialized_project(project)
     end
   end

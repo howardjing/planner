@@ -1,5 +1,5 @@
 class ProjectSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description
+  attributes :id, :title, :description, :site_url, :code_url
   
   def id
     object.id.to_s

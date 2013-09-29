@@ -12,6 +12,22 @@
     </div>
 
     <div class="form-group">
+      <label class="control-label col-md-2">Site url</label>
+      <div class="col-md-10">
+        <input ng-model="project.site_url" type="text" class="form-control" 
+          placeholder="http://www.example.com">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-md-2">Code url</label>
+      <div class="col-md-10">
+        <input ng-model="project.code_url" type="text" class="form-control" 
+          placeholder="http://www.github.com/example/repo">
+      </div>
+    </div>
+
+    <div class="form-group">
       <label class="control-label col-md-2">Description</label>
       <div class="col-md-10">
         <textarea ng-model="project.description" class="form-control" placeholder="My Cool Description">

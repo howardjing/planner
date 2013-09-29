@@ -24,6 +24,8 @@ describe Project::WithTasksSerializer do
       id: project.id.to_s, 
       title: 'cool proj', 
       description: 'hey',
+      site_url: '',
+      code_url: '',
       tasks: [
         # second task serialized first
         { 
@@ -50,6 +52,8 @@ describe Project::WithTasksSerializer do
       id: project.id.to_s, 
       title: 'cool proj', 
       description: 'hey',
+      site_url: '',
+      code_url: '',
       tasks: [
         { 
           id: second_task.id.to_s,
