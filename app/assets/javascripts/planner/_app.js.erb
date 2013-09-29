@@ -37,7 +37,7 @@ app.config(['$routeProvider', function($routeProvider) {
     resolve: {
       meta: ['Breadcrumb', 'Meta', function(Breadcrumb, Meta) {
         Breadcrumb.setCrumb('signin');
-        Meta.setTitle('Planner: Signin');
+        Meta.setTitle('planner: signin');
         Meta.setDescription('');
       }]
     }
@@ -49,7 +49,7 @@ app.config(['$routeProvider', function($routeProvider) {
       projects: ['$q', '$route', 'ProjectService', 'Breadcrumb', 'Meta', 
       function($q, $route, ProjectService, Breadcrumb, Meta) {
         Breadcrumb.setCrumb('projects');
-        Meta.setTitle('Planner');
+        Meta.setTitle('planner');
         Meta.setDescription('A basic planning app for keeping track of projects.');
         var deferred = $q.defer();
         ProjectService.query(function(projects) {
@@ -68,7 +68,7 @@ app.config(['$routeProvider', function($routeProvider) {
       projects: ['$q', '$route', 'ProjectService', 'Breadcrumb', 'Meta', 
       function($q, $route, ProjectService, Breadcrumb, Meta) {
         Breadcrumb.setCrumb('projects');
-        Meta.setTitle('Planner: projects');
+        Meta.setTitle('planner: projects');
         Meta.setDescription('A basic planning app for keeping track of projects.');
         var deferred = $q.defer();
         ProjectService.query(function(projects) {
@@ -86,7 +86,7 @@ app.config(['$routeProvider', function($routeProvider) {
     resolve: {
       meta: ['Breadcrumb', 'Meta', function(Breadcrumb, Meta) {
         Breadcrumb.setCrumb('projectsTrash');
-        Meta.setTitle('Planner: projects trash');
+        Meta.setTitle('planner: projects - trash');
         Meta.setDescription('Viewing all trashed projects.');
       }]
     }
@@ -101,7 +101,7 @@ app.config(['$routeProvider', function($routeProvider) {
         ProjectService.get({id: $route.current.params.id, tagged_with: $route.current.params.tag}, 
           function(project) {
             Breadcrumb.setCrumb('project', { project: project });
-            Meta.setTitle('Planner: ' + project.title);
+            Meta.setTitle('planner: ' + project.title);
             Meta.setDescription('Viewing all tasks for ' + project.title);
             deferred.resolve(project);
           }, function(response) {
@@ -121,7 +121,7 @@ app.config(['$routeProvider', function($routeProvider) {
         ProjectService.get({id: $route.current.params.id, trashed: true },
           function(project) {
             Breadcrumb.setCrumb('tasksTrash', { project: project });
-            Meta.setTitle('Planner: ' + project.title + ' trash');
+            Meta.setTitle('planner: ' + project.title + ' - trash');
             Meta.setDescription('Viewing all trashed tasks for ' + project.title);
             deferred.resolve(project);
           }, function(response) {
@@ -141,7 +141,7 @@ app.config(['$routeProvider', function($routeProvider) {
         TaskService.get({projectId: $route.current.params.projectId, id: $route.current.params.id},
           function(task) {
             Breadcrumb.setCrumb('task', { task: task, project: task.project });
-            Meta.setTitle('Planner: ' + task.title);
+            Meta.setTitle('planner: ' + task.project.title + ' - ' + task.title );
             Meta.setDescription(task.project.title + ': ' + task.title);
             deferred.resolve(task);
           }, function(response) {
@@ -157,7 +157,7 @@ app.config(['$routeProvider', function($routeProvider) {
     resolve: {
       meta: ['Breadcrumb', 'Meta', function(Breadcrumb, Meta) {
         Breadcrumb.setCrumb(null);
-        Meta.setTitle('Planner: 404!');
+        Meta.setTitle('planner: 404!');
         Meta.setDescription('Could not retrieve the relevant page.');
       }]
     }
