@@ -6,7 +6,7 @@ app.service('Breadcrumb', ['$location', function($location) {
     resources: {}
   }
   
-  var hashBang = '#!';
+  var hashBang = '/#!';
 
   // storing breadcrumbs as a tree
   // not sure how maintainable this will be
